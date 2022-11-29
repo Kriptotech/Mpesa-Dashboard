@@ -1,0 +1,41 @@
+.main_header {
+    position: sticky;
+    top: 0px;
+    width: 100%;
+    display: flex;
+}
+
+.main_header nav{
+    padding: 5px 2%;
+    height: 50px;
+    background-color: var(--white);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.main_header nav button{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.main_header nav img{
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+
+
+@media (min-width: 800px){
+    .main_header nav .mobile_btn{
+        display: none;
+    }
+}
+@media (max-width: 800px){
+    .main_header nav .home_btn{
+        display: none;
+    }
+}

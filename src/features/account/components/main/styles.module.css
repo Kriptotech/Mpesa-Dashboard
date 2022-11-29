@@ -1,0 +1,203 @@
+.profile {
+    background: var(--table-hover-color);
+    flex: 1;
+    padding-bottom: 100px;
+    min-height: 100vh;
+}
+
+.profile .profile_header{
+    display: flex;
+    padding: 0 10%;
+    margin-top: 50px;
+}
+.profile .profile_header h1{
+    color: var(--Dashboard-color-text-2);
+    opacity: .8;
+}
+.profile .profile_header a{
+    color: #ffffff;
+    background: var(--violet);
+    padding: 10px 30px;
+    text-decoration: none;
+    border-radius: 10px;
+}
+.profile .profile_header a:hover{
+    opacity: .8;
+}
+.profile .profile_header a:active{
+    background: none;
+}
+
+
+.profile .profile_row_container{
+    width: 100%;
+    padding: 0 10%;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+.profile .profile_row_container .profile_card{
+    width: 38%;
+}
+.profile .profile_row_container .profile_card .profile_card_box{
+    width: 100%;
+    background: var(--white);
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px var(--outline);
+    padding-top: 25px ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.profile .profile_row_container .profile_card img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 0 15px;
+    flex-shrink: 0;
+}
+.profile .profile_row_container .profile_card span{
+    color: var(--Dashboard-color-text-2);
+    font-weight: 600;
+    font-size: 1.3rem;
+    margin-top: 10px;
+    opacity: .8;
+    padding: 0 15px;
+}
+.profile .profile_row_container .profile_card p{
+    color: var(--Dashboard-color-text-1);
+    font-size: .9rem;
+    margin-top: 10px;
+    padding: 0 15px;
+}
+.profile .profile_row_container .profile_card .profile_card_box div{
+    border-top: 1px solid var(--table-hover-color);
+    margin-top: 30px;
+    height: 60px;
+    width: 100%;
+}
+
+
+
+.profile .profile_row_container form{
+    width: 60%;
+    background: var(--white);
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px var(--outline);
+    padding: 30px 0px;
+    color: var(--Dashboard-color-text-2);
+}
+.profile .profile_row_container form h4{
+    opacity: .8;
+    margin-bottom: 5px;
+    padding: 0 15px;
+}
+.profile .profile_row_container form p{
+    padding: 0 15px;
+    opacity: .8;
+    font-size: .8rem;
+    border-bottom: 1px solid var(--table-hover-color);
+    padding-bottom: 25px;
+}
+.profile .profile_row_container form div{
+    padding: 0 15px;
+    border-bottom: 1px solid var(--table-hover-color);
+    padding-bottom: 5px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.profile .profile_row_container form div input{
+    width: 48%;
+    height: 50px;
+    margin-bottom: 20px;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid var(--table-hover-color);
+    color: var(--Dashboard-color-text-1);
+    padding: 0 10px;
+}
+.profile .profile_row_container form div input::placeholder{
+    color: var(--Dashboard-color-text-1);
+    opacity: .8;
+}
+.profile .profile_row_container form div input:focus{
+    border: 1px solid var(--violet-hover);
+}
+.profile .profile_row_container form button{
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    color: #ffffffff;
+    background: var(--violet);
+    padding: 15px 30px;
+    float: right;
+    margin-right: 15px;
+    cursor: pointer;
+}
+.profile .profile_row_container form button:hover{
+    opacity: .8;
+}
+.profile .profile_row_container form button:active{
+    background: none;
+}
+
+
+
+
+
+
+
+
+.profile .profile_row_container .profile_row_box .profile_row{
+    width: 50%;
+    border-radius: 5px;
+    padding: 0 5px;
+    border: .3px solid var(--violet-hover);
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+.profile .profile_row_container .profile_row_box .profile_row input{
+    flex: 1;
+    background: none;
+    outline: none;
+    border: none;
+    padding: 0 5px;
+    height: 100%;
+    color: #888;
+}
+
+
+
+@media(max-width: 1100px){
+    .profile .profile_header{
+        padding: 0 2%;
+    }
+    .profile .profile_row_container{
+        padding: 0 2%;
+    }
+}
+@media(max-width: 1050px){
+    .profile .profile_header{
+        padding: 0 5%;
+    }
+    .profile .profile_row_container{
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    .profile .profile_row_container .profile_card{
+        width: 90%;
+    }
+    .profile .profile_row_container form{
+        width: 90%;
+    }
+}
+@media(max-width: 600px){
+    .profile .profile_row_container form div input{
+        width: 100%;
+    }
+}

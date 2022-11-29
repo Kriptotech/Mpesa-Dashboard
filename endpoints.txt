@@ -1,0 +1,7 @@
+do ganhos semanais ja esta feito
+havia te enviado o endpoint no instagram
+mas deixa mandar novamente aqui
+endpoint: /weekly-earnings.php
+params: iduser, earnings
+example:{ "iduser":"13","earnings":"1000"}
+NB: iduser armazenado no local storage
