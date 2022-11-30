@@ -8,39 +8,9 @@ import { Header } from "../../../../components/header/Index";
 
 
 export function AcountContainer() {
-    // states 
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [username, setUsername] =  useState('')
-    const [id, setId] =  useState()
-    const [formatedUsername, setFormatedUsername] =  useState('')
-
-    // cookies 
-    
-
-    // function to get information of the user
-    async function getUserInfo() {
-        let user = await localStorage.getItem('server_url');
-
-        await fetch(`${localStorage.getItem('server_url')}/users/single/${user}`)
-            .then(res=>res.json())
-            .then(data=>{
-                // console.log(data.result);
-                setUsername(data.result.username);
-                setId(data.result.id);
-                
-                if(data.result.made_tutorial === 'false'){
-                    setIsModalVisible(true)
-                }
-            })
-            .catch(err=>console.log(err))
+    async function submitForm() {
         
     }
-
-    
-
-    useEffect(()=>{
-        // getUserInfo()
-    }, [])
 
 
     return (
@@ -55,8 +25,8 @@ export function AcountContainer() {
                     <div className={style.profile_card}>
                         <div className={style.profile_card_box}>
                             <img src='profile.png' alt='' width='50px'/>
-                            <span>Catarina johnson</span>
-                            <p>Cidade de nampula</p>
+                            <span>{localStorage.getItem('agente_dashboard_username')}</span>
+                            <p>{localStorage.getItem('agente_dashboard_email')}</p>
                             <div></div>
                         </div>
                     </div>
@@ -66,12 +36,14 @@ export function AcountContainer() {
                         <p>A informação pode ser editada</p>
                         
                         <div>
-                            <input placeholder='Nome' type='text'/>
-                            <input placeholder='E-mail' type='email'/>
-                            <input placeholder='Numero de telefone' type='number'/>
-                            <input placeholder='Pais' type='text'/>
-                            <input placeholder='Cidade' type='text'/>
-                            <input placeholder='Codigo do agente' type='number'/>
+                            <input placeholder={localStorage.getItem('agente_dashboard_username') ? localStorage.getItem('agente_dashboard_username') : 'Nome'} type='text'/>
+
+                            <input placeholder={localStorage.getItem('agente_dashboard_email') ? localStorage.getItem('agente_dashboard_email') : 'E-mail'} type='email'/>
+
+                            <input placeholder={localStorage.getItem('agente_dashboard_username') ? localStorage.getItem('agente_dashboard_number') : 'Numero de telefone'} type='number'/>
+
+
+                            <input placeholder={localStorage.getItem('agente_dashboard_agent_code') ? localStorage.getItem('agente_dashboard_agent_code') : 'Codigo do agente'} type='number'/>
                         </div>
                         <button>SALVAR DETALHES</button>
                     </form>

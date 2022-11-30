@@ -65,7 +65,7 @@ export function DashboarContainer() {
                         <div className={style.dashboard_card_row}>
                             <div>
                                 <span>AGENTES</span>
-                                <span>$23k</span>
+                                <span>23k</span>
                             </div>
                             <small style={{background: '#14B8A6'}}><Users color='#fff' size={25}/></small>
                         </div>

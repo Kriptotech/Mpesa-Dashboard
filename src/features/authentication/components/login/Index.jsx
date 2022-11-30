@@ -34,6 +34,7 @@ export  function LoginContainer() {
             localStorage.setItem('agente_dashboard_number', res.data.user[0].number)
             localStorage.setItem('agente_dashboard_isadmin', res.data.user[0].isadmin)
             localStorage.setItem('agente_dashboard_city', res.data.user[0].city)
+            localStorage.setItem('agente_dashboard_agent_code', res.data.user[0].agent_code)
 
             navigate('/')
         }else{

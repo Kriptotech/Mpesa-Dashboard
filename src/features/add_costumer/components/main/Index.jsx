@@ -17,37 +17,57 @@ export function AddCostumerContainer() {
     const [city, setcity] =  useState(1)
     const [country, setcountry] =  useState(1)
     const [number, setnumber] =  useState()
+    const [agentnumber, setagentnumber] =  useState()
+    const [agentname, setagentname] =  useState()
     const [message, setmessage] =  useState()
+    const [bi, setbi] =  useState()
+    const [pin, setpin] =  useState()
+    const [bitrhdate, setbitrhdate] =  useState()
+    const [initialinvestiment, setinitialinvestiment] =  useState()
 
 
     // function to get information of the user
     async function Registrar(e) {
         e.preventDefault()
-
+        setmessage('')
+        
         const values = {
             number: Number(number),
+            agent_number: Number(agentnumber),
             password,
             name: username,
+            agent_name: agentname,
+            bi,
             agent_code,
             email,
+            pin_agent: pin,
+            initial_investment: initialinvestiment,
             city: Number(city),
             country: Number(country),
+            birthday: bitrhdate,
         }
-
+        
+        
+        
+        
+        let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/cad-agent.php',JSON.stringify(values))
         
 
-      
-	let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/cad-agent.php',JSON.stringify(values))
-    
-    // console.log(res.config.data)
-    // console.log(res.data)
+        console.log(res.config.data)
+        console.log(res.data)
 
-    if(res.data === true){
-        setmessage('Adicionado')
-    }
-    if(typeof(res.data) === 'string'){
-        res.data === 'agent-code-exist' && setmessage('codigo do agente ja existe')
-    }
+        if(res.data.status === true){
+            setmessage('Adicionado')
+        }
+        if(res.data.status === false){
+            setmessage('Falha ao adicionar')
+        }
+        if(res.data.status === false && res.data.status_text === 'user-exist'){
+            setmessage('Usuario ja existe')
+        }
+        if(typeof(res.data.status_text) === 'string'){
+            res.data.user_exist === 'user-exist' && setmessage('codigo do agente ja existe')
+        }
 
 
     }
@@ -74,20 +94,33 @@ export function AddCostumerContainer() {
                         
                         <div>
                             <input required placeholder='Nome' type='text'  onChange={(e)=>setusername(e.target.value)}/>
+
+                            <input required  placeholder='Nome do operador' type='text' onChange={(e)=>setagentname(e.target.value)}/>
+
+                            <input required placeholder='Investimento inicial' type='number' onChange={(e)=>setinitialinvestiment(e.target.value)}/>
+
+                            <input required placeholder='Pin do Agente' type='text' onChange={(e)=>setpin(e.target.value)}/>
+
+                            <input required placeholder='BI' type='text' onChange={(e)=>setbi(e.target.value)}/>
+
+                            <input required placeholder='Data' type='date' onChange={(e)=>setbitrhdate(e.target.value)}/>
+
                             <input required placeholder='E-mail' type='email' onChange={(e)=>setemail(e.target.value)}/>
+
                             <input required placeholder='Numero de telefone' type='number' onChange={(e)=>setnumber(e.target.value)}/>
 
-                            <select onChange={(e)=>setcountry(e.target.value)}>
+                            <input required placeholder='Numero de telefone do operador' type='number' onChange={(e)=>setagentnumber(e.target.value)}/>
+
+                            <select required onChange={(e)=>setcountry(e.target.value)}>
                                 <option value={1}>Mocambique</option>
                             </select>
 
-                            <select onChange={(e)=>setcity(e.target.value)}>
+                            <select required onChange={(e)=>setcity(e.target.value)}>
                                 <option value={1}>Nampula</option>
-                                <option value={2}>Lichinga</option>
-                                <option value={3}>Beira</option>
                             </select>
                             
-                            <input required placeholder='Codigo do agente' type='number' onChange={(e)=>setagent_code(e.target.value)}/>
+                            <input required placeholder='ID do agente' type='number' onChange={(e)=>setagent_code(e.target.value)}/>
+
                             <input required placeholder='Palavra passe' type='text' onChange={(e)=>setpassword(e.target.value)}/>
                         </div>
                         <button>SALVAR DETALHES</button>

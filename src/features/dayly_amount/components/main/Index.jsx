@@ -19,20 +19,6 @@ export function DaylyAmountContainer() {
 
     // function to get information of the user
     async function getUserInfo() {
-        let user = await localStorage.getItem('server_url');
-
-        await fetch(`${localStorage.getItem('server_url')}/users/single/${user}`)
-            .then(res=>res.json())
-            .then(data=>{
-                // console.log(data.result);
-                setUsername(data.result.username);
-                setId(data.result.id);
-                
-                if(data.result.made_tutorial === 'false'){
-                    setIsModalVisible(true)
-                }
-            })
-            .catch(err=>console.log(err))
         
     }
 
@@ -48,13 +34,13 @@ export function DaylyAmountContainer() {
                 <Header />
 
                 <div className={style.profile_header}>
-                    <h1>Relatar ganhos diarios</h1>
+                    <h1>Relatar ganhos semanais</h1>
                 </div>
                 
                 <div className={style.profile_row_container}>
                     <form>
                         <h4>Relatar montante</h4>
-                        <p>Relate a informação do seu ganho diario no campo abaixo</p>
+                        <p>Relate a informação do seu ganho semanal no campo abaixo</p>
                         
                         <div>
                             <input placeholder='Ganho diario' type='number'/>
