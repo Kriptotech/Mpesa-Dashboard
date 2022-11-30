@@ -5,6 +5,7 @@ import {
     Article,
     CurrencyDollar,
 } from 'phosphor-react'
+import axios from 'axios'
 
 import style from "./styles.module.css";
 import { Header } from "../../../../components/header/Index";
@@ -12,37 +13,38 @@ import { Header } from "../../../../components/header/Index";
 
 export function DashboarContainer() {
     // states 
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [username, setUsername] =  useState('')
-    const [id, setId] =  useState()
-    const [formatedUsername, setFormatedUsername] =  useState('')
+    const [costumersList, setCostumersList] =  useState([])
+    const [agentBalance, setAgentBalance] =  useState('')
+    const [companyBalance, setCompanyBalance] =  useState('')
+    const [totalagents, settotalagents] =  useState('')
+    const [totaladmins, settotaladmins] =  useState('')
 
-    // cookies 
     
 
-    // function to get information of the user
-    async function getUserInfo() {
-        let user = await localStorage.getItem('server_url');
+    // function to get information of the agents
+    async function getAgenttsInfo() {
+        let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/list-agent.php')
+        setCostumersList(res.data)
 
-        await fetch(`${localStorage.getItem('server_url')}/users/single/${user}`)
-            .then(res=>res.json())
-            .then(data=>{
-                // console.log(data.result);
-                setUsername(data.result.username);
-                setId(data.result.id);
-                
-                if(data.result.made_tutorial === 'false'){
-                    setIsModalVisible(true)
-                }
-            })
-            .catch(err=>console.log(err))
+        let agent_ballance =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/get-agent-balance.php', JSON.stringify({id: Number(localStorage.getItem('agente_dashboard_id'))}))
+        setAgentBalance(agent_ballance.data)
         
+        let company_ballance =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/get-company-balance.php')
+        setCompanyBalance(company_ballance.data)
+
+
+        settotaladmins(res.data[0].total_admin)
+        settotalagents(res.data[0].total_agents)
+
+        // console.log(res.data)
+        // console.log(agent_ballance.data)
+        // console.log(company_ballance.data)
     }
 
     
 
     useEffect(()=>{
-        // getUserInfo()
+        getAgenttsInfo()
     }, [])
 
 
@@ -51,7 +53,7 @@ export function DashboarContainer() {
                 <Header />
 
                 <div className={style.dashboard_cards_box}>
-                    <div className={style.dashboard_card}>
+                    {/* <div className={style.dashboard_card}>
                         <div className={style.dashboard_card_row}>
                             <div>
                                 <span>BUDGET</span>
@@ -59,38 +61,56 @@ export function DashboarContainer() {
                             </div>
                             <small style={{background: '#D14343'}}><Article color='#fff' size={25}/></small>
                         </div>
-                        
-                    </div>
+                    </div> */}
+
                     <div className={style.dashboard_card}>
                         <div className={style.dashboard_card_row}>
                             <div>
                                 <span>AGENTES</span>
-                                <span>23k</span>
+                                <span>{totalagents}</span>
                             </div>
                             <small style={{background: '#14B8A6'}}><Users color='#fff' size={25}/></small>
                         </div>
-                        
                     </div>
-                    <div className={style.dashboard_card}>
-                        <div className={style.dashboard_card_row}>
-                            <div>
-                                <span>PROGRESSO</span>
-                                <span>$23k</span>
+                    
+                    {
+                        localStorage.getItem('agente_dashboard_isadmin') === 'true' &&
+                        <div className={style.dashboard_card}>
+                            <div className={style.dashboard_card_row}>
+                                <div>
+                                    <span>ADMINISTRADORES</span>
+                                    <span>{totaladmins}</span>
+                                </div>
+                                <small style={{background: 'VIOLET'}}><Users color='#fff' size={25}/></small>
                             </div>
-                            <small style={{background: '#FFB020'}}><ArrowsDownUp color='#fff' size={25}/></small>
                         </div>
-                        
-                    </div>
-                    <div className={style.dashboard_card}>
-                        <div className={style.dashboard_card_row}>
-                            <div>
-                                <span>Ganho total</span>
-                                <span>$23k</span>
+                    }
+                   
+                    {
+                        localStorage.getItem('agente_dashboard_isadmin') === 'false' &&
+                        <div className={style.dashboard_card}>
+                            <div className={style.dashboard_card_row}>
+                                <div>
+                                    <span>SEU GANHO TOTAL</span>
+                                    <span>{agentBalance.balance ? agentBalance.balance : 0}MT</span>
+                                </div>
+                                <small style={{background: '#5048E5'}}><CurrencyDollar color='#fff' size={25}/></small>
                             </div>
-                            <small style={{background: '#5048E5'}}><CurrencyDollar color='#fff' size={25}/></small>
                         </div>
-                        
-                    </div>
+                    }
+
+                    {
+                        localStorage.getItem('agente_dashboard_isadmin') === 'true' &&
+                        <div className={style.dashboard_card}>
+                            <div className={style.dashboard_card_row}>
+                                <div>
+                                    <span>GANHO TOTAL DA EMPRESA</span>
+                                    <span>{companyBalance.wallet ? companyBalance.wallet : 0}MT</span>
+                                </div>
+                                <small style={{background: '#5048E5'}}><CurrencyDollar color='#fff' size={25}/></small>
+                            </div>
+                        </div>
+                    }
                 </div>
 
                 

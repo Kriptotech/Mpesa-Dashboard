@@ -15,7 +15,7 @@ export function CustomerContainer() {
 
 
     // function to get information of the agents
-    async function getClientsInfo() {
+    async function getAgenttsInfo() {
         let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/list-agent.php')
         
         setCostumersList(res.data)
@@ -25,7 +25,7 @@ export function CustomerContainer() {
     
 
     useEffect(()=>{
-        getClientsInfo()
+        getAgenttsInfo()
     }, [])
 
 

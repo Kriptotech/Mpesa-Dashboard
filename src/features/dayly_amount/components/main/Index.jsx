@@ -53,7 +53,7 @@ export function DaylyAmountContainer() {
                         <p>Relate a informação do seu ganho semanal no campo abaixo, caso tenha cometido um erro, contacte o administrador para corrigi-lo.</p>
                         
                         <div>
-                            <input placeholder='Ganho diario' type='text' onChange={(e)=>setamount(e.target.value)}/>
+                            <input placeholder='Ganho semanal' type='text' onChange={(e)=>setamount(e.target.value)}/>
                         </div>
                         <br/><p style={{color: 'violet'}}>{message}</p>
                         <button>SALVAR DETALHES</button>
