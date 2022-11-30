@@ -9,20 +9,15 @@ import { Header } from "../../../../components/header/Index";
 export function Main() {
     // states 
     const navigate =  useNavigate()
-    const [costumersList, setCostumersList] =  useState()
+    const [costumersList, setCostumersList] =  useState([])
 
 
     // function to get information of the agents
     async function fetchData() {
-        // let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/list-agent.php')
+        let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/weekly-earnings-confirmed.php')
         
-        // setCostumersList(res.data)
+        setCostumersList(res.data)
 
-        setCostumersList([
-            {id: 1, name: 'one', city: 'nampula', amount: 12282.38, number: '23824894', date: '02/11/2022'},
-            {id: 2, name: 'Frasio', city: 'nampula', amount: 12282.38, number: '23824894', date: '02/11/2022'},
-            {id: 3, name: 'Joaquim', city: 'Beira', amount: 12282.38, number: '23824894', date: '02/11/2022'},
-        ])
         // console.log(res.data)
     }
 
@@ -37,12 +32,18 @@ export function Main() {
             <div className={style.costumers}>
                 <Header />
 
-                <div className={style.costumers_header}>
-                    <h1>Relatorios semanais</h1>
-                </div>
+                {   costumersList.length !== 0 ?
+                        <div className={style.costumers_header}>
+                            <h1>Relatorios semanais</h1>
+                        </div>
+                    :
+                        <div className={style.costumers_header}>
+                            <h1>Nenhum relatorio semanail</h1>
+                        </div> 
+                }
 
                 {
-                    costumersList && 
+                    costumersList.length !== 0  && 
                     <div className={style.costumers_list_container}>
                         <div className={style.dark_item_invisible}>
                             <dl className={style.dark_item}>
@@ -64,10 +65,10 @@ export function Main() {
                                 return(
                                     <div key={item.id}>
                                         <dl className={style.litgh_item} onClick={()=>navigate('/weekly-relatory-item', {state: item})}>
-                                            <dd>{item.name}</dd>
+                                            <dd>{item.name_user}</dd>
                                         </dl>
                                         <dl className={style.litgh_item} onClick={()=>navigate('/weekly-relatory-item', {state: item})}>
-                                            <dd>{item.amount}</dd>
+                                            <dd>{item.earning}</dd>
                                         </dl>
                                         <dl className={style.litgh_item} onClick={()=>navigate('/weekly-relatory-item', {state: item})}>
                                             <dd>{item.city}</dd>

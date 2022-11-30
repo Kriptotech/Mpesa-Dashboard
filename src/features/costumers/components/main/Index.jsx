@@ -10,16 +10,12 @@ import { Header } from "../../../../components/header/Index";
 
 export function CustomerContainer() {
     // states 
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [username, setUsername] =  useState('')
-    const [id, setId] =  useState()
     const [costumersList, setCostumersList] =  useState()
+    const [searchTerm, setSearchTerm] =  useState('')
 
 
     // function to get information of the agents
     async function getClientsInfo() {
-        let user = await localStorage.getItem('server_url');
-
         let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/list-agent.php')
         
         setCostumersList(res.data)
@@ -46,7 +42,7 @@ export function CustomerContainer() {
                     <div className={style.costumers_search_box}>
                         <div className={style.costumers_search}>
                             <MagnifyingGlass color='#888' size={25}/>
-                            <input type='text' placeholder='Pesquisar agente'/>
+                            <input type='text' placeholder='Pesquisar agente' onChange={(e)=>setSearchTerm(e.target.value)}/>
                         </div>
                     </div>
                 </div>
@@ -70,22 +66,79 @@ export function CustomerContainer() {
                         </div>
                         
                         {
-                            costumersList.map((item)=>{
+                            // costumersList.map((item)=>{
+                            //     return(
+                            //         <div key={item.id}>
+                            //             <dl className={style.litgh_item}>
+                            //                 <dd>{item.name}</dd>
+                            //             </dl>
+                            //             <dl className={style.litgh_item}>
+                            //                 <dd>{item.email}</dd>
+                            //             </dl>
+                            //             <dl className={style.litgh_item}>
+                            //                 <dd>{item.city}</dd>
+                            //             </dl>
+                            //             <dl className={style.litgh_item}>
+                            //                 <dd>{item.number}</dd>
+                            //             </dl>
+                            //         </div>
+                            //     )
+                            // })
+                            costumersList.filter((item)=>{
+                                if (searchTerm === '') { 
+                                    return(
+                                        <div key={item.id}>
+                                            <dl className={style.litgh_item}>
+                                                <dd>{item.name}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item}>
+                                                <dd>{item.email}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item}>
+                                                <dd>{item.city}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item}>
+                                                <dd>{item.number}</dd>
+                                            </dl>
+                                        </div>
+                                    )
+                                }
+        
+                                // if there was found any item with the values provided
+                                else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
+                                    return(
+                                        <div key={item.id}>
+                                            <dl className={style.litgh_item}>
+                                                <dd>{item.name}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item}>
+                                                <dd>{item.email}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item}>
+                                                <dd>{item.city}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item}>
+                                                <dd>{item.number}</dd>
+                                            </dl>
+                                        </div>
+                                    )
+                                }
+                            }).map((item)=>{ /* maping through the array filtered */
                                 return(
                                     <div key={item.id}>
-                                        <dl className={style.litgh_item}>
-                                            <dd>{item.name}</dd>
-                                        </dl>
-                                        <dl className={style.litgh_item}>
-                                            <dd>{item.email}</dd>
-                                        </dl>
-                                        <dl className={style.litgh_item}>
-                                            <dd>{item.city}</dd>
-                                        </dl>
-                                        <dl className={style.litgh_item}>
-                                            <dd>{item.number}</dd>
-                                        </dl>
-                                    </div>
+                                         <dl className={style.litgh_item}>
+                                             <dd>{item.name}</dd>
+                                         </dl>
+                                         <dl className={style.litgh_item}>
+                                             <dd>{item.email}</dd>
+                                         </dl>
+                                         <dl className={style.litgh_item}>
+                                             <dd>{item.city}</dd>
+                                         </dl>
+                                         <dl className={style.litgh_item}>
+                                             <dd>{item.number}</dd>
+                                         </dl>
+                                     </div>
                                 )
                             })
                         }

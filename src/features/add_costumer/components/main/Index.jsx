@@ -53,8 +53,8 @@ export function AddCostumerContainer() {
         let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/cad-agent.php',JSON.stringify(values))
         
 
-        console.log(res.config.data)
-        console.log(res.data)
+        // console.log(res.config.data)
+        // console.log(res.data)
 
         if(res.data.status === true){
             setmessage('Adicionado')
@@ -74,9 +74,6 @@ export function AddCostumerContainer() {
 
     
 
-    useEffect(()=>{
-        // getUserInfo()
-    }, [])
 
 
     return (

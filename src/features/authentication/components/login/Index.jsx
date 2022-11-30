@@ -23,15 +23,15 @@ export  function LoginContainer() {
         let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/login.php',JSON.stringify(values))
         
         // console.log(res.config.data)
+        // console.log(res.data)
         
         if(res.data.response){
-            setMessage('')
-            console.log(res.data)
             
             localStorage.setItem('agente_dashboard_id', res.data.user[0].id)
             localStorage.setItem('agente_dashboard_username', res.data.user[0].name)
             localStorage.setItem('agente_dashboard_email', res.data.user[0].email)
             localStorage.setItem('agente_dashboard_number', res.data.user[0].number)
+            localStorage.setItem('agente_dashboard_agent_number_number', res.data.user[0].agent_number)
             localStorage.setItem('agente_dashboard_isadmin', res.data.user[0].isadmin)
             localStorage.setItem('agente_dashboard_city', res.data.user[0].city)
             localStorage.setItem('agente_dashboard_agent_code', res.data.user[0].agent_code)

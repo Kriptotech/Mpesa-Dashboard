@@ -6,16 +6,15 @@
 }
 
 .costumers .costumers_header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 50px;
     padding: 0 2%;
     margin-top: 50px;
 }
 .costumers .costumers_header h1{
     color: var(--Dashboard-color-text-2);
+}
+.costumers .costumers_header p{
+    color: var(--Dashboard-color-text-1);
+    margin-top: 4px;
 }
 .costumers .costumers_header a{
     color: #ffffff;

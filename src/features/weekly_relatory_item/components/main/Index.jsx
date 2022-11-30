@@ -19,17 +19,17 @@ export function Main() {
                 <Header />
 
                 <div className={style.relatory_header}>
-                    <h1>Relatorio do {itemData.name}</h1>
+                    <h1>Relatorio do {itemData.name_user}</h1>
                 </div>
 
                 
                     <div className={style.relatory_list_container}>
                         <div className={style.relatory_list_box}>
                             <div>
-                                <p>Relatorio feito por: <span>{itemData.name}</span></p>
+                                <p>Relatorio feito por: <span>{itemData.name_user}</span></p>
                             </div>
                             <div>
-                                <p>Montante inserido no relatorio: <span>{itemData.amount}</span></p>
+                                <p>Montante inserido no relatorio: <span>{itemData.earning}</span></p>
                             </div>
                             <div>
                                 <p>Data em que o relatorio foi feito : <span>{itemData.date}</span></p>
