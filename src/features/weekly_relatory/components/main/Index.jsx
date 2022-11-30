@@ -38,7 +38,7 @@ export function Main() {
                         </div>
                     :
                         <div className={style.costumers_header}>
-                            <h1>Nenhum relatorio semanail</h1>
+                            <h1>Nenhum relatorio semanal</h1>
                         </div> 
                 }
 

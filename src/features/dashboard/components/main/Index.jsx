@@ -33,10 +33,10 @@ export function DashboarContainer() {
         setCompanyBalance(company_ballance.data)
 
 
-        settotaladmins(res.data[0].total_admin)
-        settotalagents(res.data[0].total_agents)
+        settotaladmins(res.data[0]?.total_admin)
+        settotalagents(res.data[0]?.total_agents)
 
-        // console.log(res.data)
+        console.log(res.data)
         // console.log(agent_ballance.data)
         // console.log(company_ballance.data)
     }
