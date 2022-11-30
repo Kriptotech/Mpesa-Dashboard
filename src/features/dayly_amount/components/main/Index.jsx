@@ -25,8 +25,8 @@ export function DaylyAmountContainer() {
         if(amount){
             let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/add-weekly-earnings.php',JSON.stringify(values))
             
-            console.log(res.config.data)
-            console.log(res.data)
+            // console.log(res.config.data)
+            // console.log(res.data)
             
             if(res.data){
                 setMessage('Valor adicionado')

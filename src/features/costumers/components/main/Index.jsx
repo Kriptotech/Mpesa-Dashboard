@@ -35,7 +35,7 @@ export function CustomerContainer() {
 
                 <div className={style.costumers_header}>
                     <h1>Agentes</h1>
-                    <a href='add-agents'>Adicionar agentes</a>
+                    <a href='add-agent'>Adicionar agentes</a>
                 </div>
                 
                 <div className={style.costumers_search_container}>
@@ -66,24 +66,6 @@ export function CustomerContainer() {
                         </div>
                         
                         {
-                            // costumersList.map((item)=>{
-                            //     return(
-                            //         <div key={item.id}>
-                            //             <dl className={style.litgh_item}>
-                            //                 <dd>{item.name}</dd>
-                            //             </dl>
-                            //             <dl className={style.litgh_item}>
-                            //                 <dd>{item.email}</dd>
-                            //             </dl>
-                            //             <dl className={style.litgh_item}>
-                            //                 <dd>{item.city}</dd>
-                            //             </dl>
-                            //             <dl className={style.litgh_item}>
-                            //                 <dd>{item.number}</dd>
-                            //             </dl>
-                            //         </div>
-                            //     )
-                            // })
                             costumersList.filter((item)=>{
                                 if (searchTerm === '') { 
                                     return(

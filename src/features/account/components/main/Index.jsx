@@ -42,6 +42,9 @@ export function AcountContainer() {
             if(res.data.response_text === 'Numero ocupado'){
                 setMessage('atualizado')
             }
+            if(username === localStorage.getItem('agente_dashboard_username') && number === localStorage.getItem('agente_dashboard_number') && email === localStorage.getItem('agente_dashboard_email')){
+                setMessage('nenhuma alteração feita')
+            }
         }else setMessage('nenhuma alteração feita')
     }
 
