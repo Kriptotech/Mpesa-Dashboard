@@ -9,7 +9,6 @@ import axios from 'axios'
 
 export function AddCostumerContainer() {
     // states 
-    const [isModalVisible, setIsModalVisible] = useState(false);
     const [username, setusername] =  useState()
     const [email, setemail] =  useState()
     const [password, setpassword] =  useState()

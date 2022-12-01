@@ -92,6 +92,7 @@ dd{
 }
 .litgh_item{
     background: var(--white);
+    cursor: pointer;
 }
 
 

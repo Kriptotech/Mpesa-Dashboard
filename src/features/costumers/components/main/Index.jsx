@@ -3,6 +3,7 @@ import {
     MagnifyingGlass,
 } from 'phosphor-react'
 import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
 
 import style from "./styles.module.css";
 import { Header } from "../../../../components/header/Index";
@@ -10,7 +11,8 @@ import { Header } from "../../../../components/header/Index";
 
 export function CustomerContainer() {
     // states 
-    const [costumersList, setCostumersList] =  useState()
+    const navigate =  useNavigate()
+    const [costumersList, setCostumersList] =  useState([])
     const [searchTerm, setSearchTerm] =  useState('')
 
 
@@ -18,7 +20,7 @@ export function CustomerContainer() {
     async function getAgenttsInfo() {
         let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/list-agent.php')
         
-        setCostumersList(res.data)
+        setCostumersList(res.data.users)
         // console.log(res.data)
     }
 
@@ -48,7 +50,7 @@ export function CustomerContainer() {
                 </div>
 
                 {
-                    costumersList && 
+                    costumersList.length !== 0 && 
                     <div className={style.costumers_list_container}>
                         <div className={style.dark_item_invisible}>
                             <dl className={style.dark_item}>
@@ -70,16 +72,16 @@ export function CustomerContainer() {
                                 if (searchTerm === '') { 
                                     return(
                                         <div key={item.id}>
-                                            <dl className={style.litgh_item}>
+                                            <dl className={style.litgh_item} onClick={()=>navigate('/customer', {state: item})}>
                                                 <dd>{item.name}</dd>
                                             </dl>
-                                            <dl className={style.litgh_item}>
+                                            <dl className={style.litgh_item} onClick={()=>navigate('/customer', {state: item})}>
                                                 <dd>{item.email}</dd>
                                             </dl>
-                                            <dl className={style.litgh_item}>
+                                            <dl className={style.litgh_item} onClick={()=>navigate('/customer', {state: item})}>
                                                 <dd>{item.city}</dd>
                                             </dl>
-                                            <dl className={style.litgh_item}>
+                                            <dl className={style.litgh_item} onClick={()=>navigate('/customer', {state: item})}>
                                                 <dd>{item.number}</dd>
                                             </dl>
                                         </div>
@@ -90,16 +92,16 @@ export function CustomerContainer() {
                                 else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
                                     return(
                                         <div key={item.id}>
-                                            <dl className={style.litgh_item}>
+                                            <dl className={style.litgh_item} onClick={()=>navigate('/customer', {state: item})}>
                                                 <dd>{item.name}</dd>
                                             </dl>
-                                            <dl className={style.litgh_item}>
+                                            <dl className={style.litgh_item} onClick={()=>navigate('/customer', {state: item})}>
                                                 <dd>{item.email}</dd>
                                             </dl>
-                                            <dl className={style.litgh_item}>
+                                            <dl className={style.litgh_item} onClick={()=>navigate('/customer', {state: item})}>
                                                 <dd>{item.city}</dd>
                                             </dl>
-                                            <dl className={style.litgh_item}>
+                                            <dl className={style.litgh_item} onClick={()=>navigate('/customer', {state: item})}>
                                                 <dd>{item.number}</dd>
                                             </dl>
                                         </div>
@@ -108,18 +110,18 @@ export function CustomerContainer() {
                             }).map((item)=>{ /* maping through the array filtered */
                                 return(
                                     <div key={item.id}>
-                                         <dl className={style.litgh_item}>
-                                             <dd>{item.name}</dd>
-                                         </dl>
-                                         <dl className={style.litgh_item}>
-                                             <dd>{item.email}</dd>
-                                         </dl>
-                                         <dl className={style.litgh_item}>
-                                             <dd>{item.city}</dd>
-                                         </dl>
-                                         <dl className={style.litgh_item}>
-                                             <dd>{item.number}</dd>
-                                         </dl>
+                                         <dl className={style.litgh_item} onClick={()=>navigate('/customer', {state: item})}>
+                                                <dd>{item.name}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item} onClick={()=>navigate('/customer', {state: item})}>
+                                                <dd>{item.email}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item} onClick={()=>navigate('/customer', {state: item})}>
+                                                <dd>{item.city}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item} onClick={()=>navigate('/customer', {state: item})}>
+                                                <dd>{item.number}</dd>
+                                            </dl>
                                      </div>
                                 )
                             })

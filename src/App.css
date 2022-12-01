@@ -106,3 +106,5 @@ body {
     background: hsl(229, 7%, 54%);
     border-radius: 15px;
 }
+
+/* localStorage.setItem('agente_dashboard_isadmin', true) */

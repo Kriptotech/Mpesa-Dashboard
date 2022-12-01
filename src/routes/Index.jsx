@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { PrivateRoute } from "./privateRoute";
 import { Dashboard } from "../pages/Dashboard";
+import { Costumer } from "../pages/Costumer";
 import { Costumers } from "../pages/Costumers";
 import { Account } from "../pages/Account";
 import { AddCostumer } from "../pages/AddCostumer";
@@ -22,6 +23,7 @@ export function Router() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/dayly-amount" element={<PrivateRoute><DaylyAmount  /></PrivateRoute>} />
+                        <Route path="/customer" element={<PrivateRoute><Costumer  /></PrivateRoute>} />
                         <Route path="/add-agent" element={<PrivateRoute><AddCostumer /></PrivateRoute>} />
                         <Route path="/account" element={<PrivateRoute><Account /></PrivateRoute>} />
                         <Route path="/customers" element={<PrivateRoute><Costumers /></PrivateRoute>} />

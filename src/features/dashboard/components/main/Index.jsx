@@ -33,10 +33,10 @@ export function DashboarContainer() {
         setCompanyBalance(company_ballance.data)
 
 
-        settotaladmins(res.data[0]?.total_admin)
-        settotalagents(res.data[0]?.total_agents)
+        settotaladmins(res.data?.total_admin)
+        settotalagents(res.data?.total_agents)
 
-        console.log(res.data)
+        // console.log(res.data)
         // console.log(agent_ballance.data)
         // console.log(company_ballance.data)
     }
@@ -63,15 +63,18 @@ export function DashboarContainer() {
                         </div>
                     </div> */}
 
-                    <div className={style.dashboard_card}>
-                        <div className={style.dashboard_card_row}>
-                            <div>
-                                <span>AGENTES</span>
-                                <span>{totalagents}</span>
+                    {
+                        localStorage.getItem('agente_dashboard_isadmin') === 'true' &&
+                        <div className={style.dashboard_card}>
+                            <div className={style.dashboard_card_row}>
+                                <div>
+                                    <span>AGENTES</span>
+                                    <span>{totalagents}</span>
+                                </div>
+                                <small style={{background: '#14B8A6'}}><Users color='#fff' size={25}/></small>
                             </div>
-                            <small style={{background: '#14B8A6'}}><Users color='#fff' size={25}/></small>
                         </div>
-                    </div>
+                    }
                     
                     {
                         localStorage.getItem('agente_dashboard_isadmin') === 'true' &&
