@@ -56,7 +56,7 @@ export function Main() {
                 {
                     costumersList.length !== 0 && 
                     <div className={style.costumers_list_container}>
-                        <h3>Seus pedidos de float </h3>
+                        <h3>Seus lançamentos </h3>
 
                         <div className={style.dark_item_invisible}>
                             <dl className={style.dark_item}>
