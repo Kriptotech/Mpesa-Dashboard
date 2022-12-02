@@ -11,6 +11,9 @@ import { WeeklyRelatory } from "../pages/WeeklyRelatory";
 import { WeeklyRelatoryItem } from "../pages/WeeklyRelatoryItem";
 import { ConfirmWeeklyRelatoryItem } from "../pages/ConfirmWeeklyRelatoryItem";
 import { ConfirmWeeklyRelatory } from "../pages/ConfirmWeeklyRelatory";
+import { ConfirmFloatRequest } from "../pages/ConfirmFloatRequest";
+import { ConfirmFloatRequestItem } from "../pages/ConfirmFloatRequestItem";
+import { AskFloat } from "../pages/AskFloat";
 import { Login } from "../pages/Login";
 
 
@@ -22,7 +25,9 @@ export function Router() {
             <div>
                 <BrowserRouter>
                     <Routes>
+                        <Route path="/confirm-float-request" element={<PrivateRoute><ConfirmFloatRequest  /></PrivateRoute>} />
                         <Route path="/dayly-amount" element={<PrivateRoute><DaylyAmount  /></PrivateRoute>} />
+                        <Route path="/ask-float" element={<PrivateRoute><AskFloat  /></PrivateRoute>} />
                         <Route path="/customer" element={<PrivateRoute><Costumer  /></PrivateRoute>} />
                         <Route path="/add-agent" element={<PrivateRoute><AddCostumer /></PrivateRoute>} />
                         <Route path="/account" element={<PrivateRoute><Account /></PrivateRoute>} />
@@ -30,6 +35,7 @@ export function Router() {
                         <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
                         <Route path="/weekly-relatory-item" element={<PrivateRoute><WeeklyRelatoryItem /></PrivateRoute>} />
                         <Route path="/confirm-weekly-relatory-item" element={<PrivateRoute><ConfirmWeeklyRelatoryItem /></PrivateRoute>} />
+                        <Route path="/confirm-float-request-item" element={<PrivateRoute><ConfirmFloatRequestItem /></PrivateRoute>} />
                         <Route path="/confirm-weekly-relatory" element={<PrivateRoute><ConfirmWeeklyRelatory /></PrivateRoute>} />
                         <Route path="/weekly-relatory" element={<PrivateRoute><WeeklyRelatory /></PrivateRoute>} />
                         <Route path="/signin" element={<Login />} />

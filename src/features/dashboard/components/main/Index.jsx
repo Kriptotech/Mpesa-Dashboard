@@ -6,6 +6,7 @@ import {
     CurrencyDollar,
 } from 'phosphor-react'
 import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
 
 import style from "./styles.module.css";
 import { Header } from "../../../../components/header/Index";
@@ -18,13 +19,29 @@ export function DashboarContainer() {
     const [companyBalance, setCompanyBalance] =  useState('')
     const [totalagents, settotalagents] =  useState('')
     const [totaladmins, settotaladmins] =  useState('')
+    const [searchTerm, setSearchTerm] =  useState('')
+
+    const navigate =  useNavigate()
+
+
+    // function to get information of the agents
+    async function getAgenttsInfo() {
+    }
+
+    
+
+    useEffect(()=>{
+        getAgenttsInfo()
+    }, [])
+
+
 
     
 
     // function to get information of the agents
     async function getAgenttsInfo() {
         let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/list-agent.php')
-        setCostumersList(res.data)
+        setCostumersList(res.data.users)
 
         let agent_ballance =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/get-agent-balance.php', JSON.stringify({id: Number(localStorage.getItem('agente_dashboard_id'))}))
         setAgentBalance(agent_ballance.data)
@@ -32,6 +49,7 @@ export function DashboarContainer() {
         let company_ballance =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/get-company-balance.php')
         setCompanyBalance(company_ballance.data)
 
+        
 
         settotaladmins(res.data?.total_admin)
         settotalagents(res.data?.total_agents)
@@ -101,6 +119,18 @@ export function DashboarContainer() {
                             </div>
                         </div>
                     }
+                    {
+                        localStorage.getItem('agente_dashboard_isadmin') === 'false' &&
+                        <div className={style.dashboard_card}>
+                            <div className={style.dashboard_card_row}>
+                                <div>
+                                    <span>SEU ULTIMO GANHO</span>
+                                    <span>{agentBalance.balance ? agentBalance.balance : 0}MT</span>
+                                </div>
+                                <small style={{background: 'pink'}}><CurrencyDollar color='#fff' size={25}/></small>
+                            </div>
+                        </div>
+                    }
 
                     {
                         localStorage.getItem('agente_dashboard_isadmin') === 'true' &&
@@ -117,6 +147,90 @@ export function DashboarContainer() {
                 </div>
 
                 
+
+                {
+                    localStorage.getItem('agente_dashboard_isadmin') === 'false' && costumersList.length !== 0 && 
+                    <div className={style.costumers_list_container}>
+                        <h3>Ultimos ganhos relatados por ti</h3>
+
+                        <div className={style.dark_item_invisible}>
+                            <dl className={style.dark_item}>
+                                <dt>Nome</dt>
+                            </dl>
+                            <dl className={style.dark_item}>
+                                <dt>E-mail</dt>
+                            </dl>
+                            <dl className={style.dark_item}>
+                                <dt>Localização</dt>
+                            </dl>
+                            <dl className={style.dark_item}>
+                                <dt>Telefone</dt>
+                            </dl>
+                        </div>
+                        
+                        {
+                            costumersList.filter((item)=>{
+                                if (searchTerm === '') { 
+                                    return(
+                                        <div key={item.id}>
+                                            <dl className={style.litgh_item} >
+                                                <dd>{item.name}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item} >
+                                                <dd>{item.email}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item} >
+                                                <dd>{item.city}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item} >
+                                                <dd>{item.number}</dd>
+                                            </dl>
+                                        </div>
+                                    )
+                                }
+        
+                                // if there was found any item with the values provided
+                                else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
+                                    return(
+                                        <div key={item.id}>
+                                            <dl className={style.litgh_item} >
+                                                <dd>{item.name}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item} >
+                                                <dd>{item.email}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item} >
+                                                <dd>{item.city}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item} >
+                                                <dd>{item.number}</dd>
+                                            </dl>
+                                        </div>
+                                    )
+                                }
+                            }).map((item)=>{ 
+                                return(
+                                    <div key={item.id}>
+                                         <dl className={style.litgh_item} >
+                                                <dd>{item.name}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item} >
+                                                <dd>{item.email}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item} >
+                                                <dd>{item.city}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item} >
+                                                <dd>{item.number}</dd>
+                                            </dl>
+                                     </div>
+                                )
+                            })
+                        }
+                    </div>
+                    
+                }
+
             </div>
     );
 }

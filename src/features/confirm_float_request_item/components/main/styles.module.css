@@ -1,0 +1,92 @@
+.relatory {
+    background: var(--table-hover-color);
+    flex: 1;
+    padding-bottom: 100px;
+    min-height: 100vh;
+}
+
+.relatory .relatory_header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 50px;
+    padding: 0 2%;
+    margin-top: 50px;
+}
+.relatory .relatory_header h1{
+    color: var(--Dashboard-color-text-2);
+}
+.relatory .relatory_header a{
+    color: #ffffff;
+    background: var(--violet);
+    padding: 10px 30px;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+
+
+.relatory .relatory_list_container{
+    padding: 0 2%;
+    margin-top: 30px;
+    width: 100%;
+}
+.relatory .relatory_list_box{
+    padding: 20px;
+    margin-top: 30px;
+    width: 100%;
+    background: var(--white);
+}
+.relatory .relatory_list_box div{
+    padding: 8px 0px;
+    margin-bottom: 10px;
+    width: 100%;
+    /* background: var(--table-hover-color); */
+}
+.relatory .relatory_list_box div p{
+    color: #555;
+    font-size: .95rem;
+}
+.relatory .relatory_list_box div p span{
+    color: var(--violet);
+    font-weight: 500;
+}
+
+.relatory .relatory_list_box div:last-child{
+    display: flex;
+    justify-content: flex-end;
+}
+.relatory .relatory_list_box div:last-child button{
+    color: #ffffff;
+    background: var(--violet);
+    font-weight: 500;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.relatory .relatory_list_box div:last-child button:hover{
+    opacity: .9;
+}
+.relatory .relatory_list_box div:last-child button:active{
+    opacity: .4;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1200px){
+  
+    
+}
+@media (max-width: 1100px){
+    
+}

@@ -31,6 +31,8 @@ export function Sidebar() {
     const [daylyAmountCurrnt, setDaylyAmountCurrent] = useState(false);
     const [weeklyRelatoryCurrent, setweeklyRelatoryCurrent] = useState(false);
     const [confirmweeklyRelatoryCurrent, setconfirmweeklyRelatoryCurrent] = useState(false);
+    const [askfloatCurrent, setaskfloatCurrent] = useState(false);
+    const [confirmfloatrequestCurrent, setaconfirmfloatrequestCurrent] = useState(false);
 
     const [isAdmin, setIsAdmin] = useState(localStorage.getItem('agente_dashboard_isadmin') === 'true' ? true : false);
 
@@ -38,12 +40,38 @@ export function Sidebar() {
         localStorage.setItem('currentRoute', route)
 
         // changing current routes
+        if(route === 'confirm-float-request'){
+            setdashboardCurrent(false)
+            setAgentsCurrent(false)
+            setAccountCurrent(false)
+            setAddAgentCurrent(false)
+            setweeklyRelatoryCurrent(false)
+            setconfirmweeklyRelatoryCurrent(false)
+            setDaylyAmountCurrent(false)
+            setaskfloatCurrent(false)
+            setaconfirmfloatrequestCurrent(true)
+            navigate('/confirm-float-request')
+        }
+        if(route === 'ask-float'){
+            setdashboardCurrent(false)
+            setAgentsCurrent(false)
+            setAccountCurrent(false)
+            setAddAgentCurrent(false)
+            setweeklyRelatoryCurrent(false)
+            setconfirmweeklyRelatoryCurrent(false)
+            setDaylyAmountCurrent(false)
+            setaconfirmfloatrequestCurrent(false)
+            setaskfloatCurrent(true)
+            navigate('/ask-float')
+        }
         if(route === 'dashboard'){
             setAgentsCurrent(false)
             setAccountCurrent(false)
             setAddAgentCurrent(false)
             setweeklyRelatoryCurrent(false)
             setconfirmweeklyRelatoryCurrent(false)
+            setaskfloatCurrent(false)
+            setaconfirmfloatrequestCurrent(false)
             setdashboardCurrent(true)
             navigate('/')
         }
@@ -53,6 +81,8 @@ export function Sidebar() {
             setAddAgentCurrent(false)
             setdashboardCurrent(false)
             setweeklyRelatoryCurrent(false)
+            setaskfloatCurrent(false)
+            setaconfirmfloatrequestCurrent(false)
             setconfirmweeklyRelatoryCurrent(true)
             navigate('/confirm-weekly-relatory')
         }
@@ -61,6 +91,8 @@ export function Sidebar() {
             setAccountCurrent(false)
             setAddAgentCurrent(false)
             setdashboardCurrent(false)
+            setaskfloatCurrent(false)
+            setaconfirmfloatrequestCurrent(false)
             setweeklyRelatoryCurrent(true)
             navigate('/weekly-relatory')
         }
@@ -70,6 +102,8 @@ export function Sidebar() {
             setdashboardCurrent(false)
             setweeklyRelatoryCurrent(false)
             setconfirmweeklyRelatoryCurrent(false)
+            setaskfloatCurrent(false)
+            setaconfirmfloatrequestCurrent(false)
             setAgentsCurrent(true)
             navigate('/customers')
         }
@@ -79,6 +113,8 @@ export function Sidebar() {
             setAgentsCurrent(false)
             setweeklyRelatoryCurrent(false)
             setconfirmweeklyRelatoryCurrent(false)
+            setaskfloatCurrent(false)
+            setaconfirmfloatrequestCurrent(false)
             setAccountCurrent(true)
             navigate('/account')
         }
@@ -86,9 +122,11 @@ export function Sidebar() {
             setdashboardCurrent(false)
             setAgentsCurrent(false)
             setAccountCurrent(false)
-            setAddAgentCurrent(true)
             setweeklyRelatoryCurrent(false)
             setconfirmweeklyRelatoryCurrent(false)
+            setaskfloatCurrent(false)
+            setaconfirmfloatrequestCurrent(false)
+            setAddAgentCurrent(true)
             navigate('/add-agent')
         }
         if(route === 'dayly_amount'){
@@ -98,9 +136,12 @@ export function Sidebar() {
             setAddAgentCurrent(false)
             setweeklyRelatoryCurrent(false)
             setconfirmweeklyRelatoryCurrent(false)
+            setaskfloatCurrent(false)
+            setaconfirmfloatrequestCurrent(false)
             setDaylyAmountCurrent(true)
             navigate('/dayly-amount')
         }
+        
     }
 
     useEffect(()=>{
@@ -125,6 +166,12 @@ export function Sidebar() {
         }
         if(localStorage.getItem('currentRoute') === 'confirm-weekly-relatory'){
             setconfirmweeklyRelatoryCurrent(true)
+        }
+        if(localStorage.getItem('currentRoute') === 'ask-float'){
+            setaskfloatCurrent(true)
+        }
+        if(localStorage.getItem('currentRoute') === 'confirm-float-request'){
+            setaconfirmfloatrequestCurrent(true)
         }
 
         // if there is no current route in local storage
@@ -192,6 +239,20 @@ export function Sidebar() {
                             <span style={{color: confirmweeklyRelatoryCurrent ? '#10B981' : '#9CA3AF'}}>Confirmar relatorios semanais</span>
                         </div>
                     }
+                    {
+                        isAdmin &&
+                        <div onClick={()=>changeCurrentRoute('confirm-float-request')} style={{background: confirmfloatrequestCurrent ? '#242A38' : 'none'}}>
+                            <CurrencyDollar color={confirmfloatrequestCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
+                            <span style={{color: confirmfloatrequestCurrent ? '#10B981' : '#9CA3AF'}}>Confirmar pedido de float</span>
+                        </div>
+                    }
+                    {
+                        !isAdmin &&
+                        <div onClick={()=>changeCurrentRoute('ask-float')} style={{background: askfloatCurrent ? '#242A38' : 'none'}}>
+                            <CurrencyDollar color={askfloatCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
+                            <span style={{color: askfloatCurrent ? '#10B981' : '#9CA3AF'}}>Requisitar float</span>
+                        </div>
+                    }
                 </div>
             </div>
         </header>
@@ -204,16 +265,10 @@ export function Sidebar() {
             <div  className={asideVisible ? style.sidebar_mobile_visible : style.sidebar_mobile}>
 
                 <div  className={style.sidebar_first_div_box}>
-                    <button onClick={()=>console.log(setasideVisible(false))}>
+                    <button onClick={()=>setasideVisible(false)}>
                         <XCircle color='rgba(157, 109, 235, 1)' size={28}/>
                     </button>
-                    <div>
-                        <span>{localStorage.getItem('agente_dashboard_username')}</span>
-                        <span>Logado como: {localStorage.getItem('agente_dashboard_isadmin') ? 'admin' : 'agente'}</span>
-                    </div>
-                </div>
-                
-                <div  className={style.sidebar_second_div_box}>
+                    
                     <div onClick={()=>changeCurrentRoute('dashboard')} style={{background: dashboardCurrent ? '#242A38' : 'none'}}>
                         <ChartBar color={dashboardCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
                         <span style={{color: dashboardCurrent ? '#10B981' : '#9CA3AF'}}>Dashboard</span>
@@ -258,6 +313,20 @@ export function Sidebar() {
                         <div onClick={()=>changeCurrentRoute('confirm-weekly-relatory')} style={{background: confirmweeklyRelatoryCurrent ? '#242A38' : 'none'}}>
                             <CurrencyDollar color={confirmweeklyRelatoryCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
                             <span style={{color: confirmweeklyRelatoryCurrent ? '#10B981' : '#9CA3AF'}}>Confirmar relatorios semanais</span>
+                        </div>
+                    }
+                    {
+                        isAdmin &&
+                        <div onClick={()=>changeCurrentRoute('confirm-float-request')} style={{background: confirmfloatrequestCurrent ? '#242A38' : 'none'}}>
+                            <CurrencyDollar color={confirmfloatrequestCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
+                            <span style={{color: confirmfloatrequestCurrent ? '#10B981' : '#9CA3AF'}}>Confirmar pedido de float</span>
+                        </div>
+                    }
+                    {
+                        !isAdmin &&
+                        <div onClick={()=>changeCurrentRoute('ask-float')} style={{background: askfloatCurrent ? '#242A38' : 'none'}}>
+                            <CurrencyDollar color={askfloatCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
+                            <span style={{color: askfloatCurrent ? '#10B981' : '#9CA3AF'}}>Requisitar float</span>
                         </div>
                     }
                 </div>
