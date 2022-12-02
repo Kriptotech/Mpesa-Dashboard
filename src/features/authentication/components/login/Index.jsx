@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { PulseLoader } from 'react-spinners'
 
 import style from './styles.module.css'
 
@@ -98,7 +99,9 @@ export function LoginContainer() {
                 <span>{message}</span>
               </p>
             )}
-            <button>{isLoading ? 'Aguarde...' : 'LOGIN'}</button>
+            <button>
+              {isLoading ? <PulseLoader color="green" /> : 'LOGIN'}
+            </button>
           </form>
         </div>
 

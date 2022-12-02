@@ -21,12 +21,14 @@ export function DashboarContainer() {
   const [total_earning, settotal_earning] = useState('')
   const [last_earning, setlast_earning] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
+  const [isLoading, setLoading] = useState(false)
   const [adminlist, setadminlist] = useState([])
 
   const navigate = useNavigate()
 
   // function to get information of the agents
   async function getAgenttsInfo() {
+    setLoading(true)
     let res = await axios.post(
       'https://pipocar.dnsabr.com/app/mpesa-dashboard/agent-list-request.php',
       JSON.stringify({
@@ -60,6 +62,7 @@ export function DashboarContainer() {
     let company_ballance = await axios.post(
       'https://pipocar.dnsabr.com/app/mpesa-dashboard/get-company-balance.php'
     )
+    setLoading(false)
     setCompanyBalance(company_ballance.data)
 
     setCostumersList(res.data)
@@ -100,7 +103,11 @@ export function DashboarContainer() {
             <div className={style.dashboard_card_row}>
               <div>
                 <span>AGENTES</span>
-                <span>{totalagents ? totalagents : 0}</span>
+                {isLoading ? (
+                  <span>Processando</span>
+                ) : (
+                  <span>{totalagents ? totalagents : 0}</span>
+                )}
               </div>
               <small style={{ background: '#14B8A6' }}>
                 <Users color="#fff" size={25} />
@@ -115,7 +122,11 @@ export function DashboarContainer() {
             <div className={style.dashboard_card_row}>
               <div>
                 <span>ADMINISTRADORES</span>
-                <span>{totaladmins ? totaladmins : 0}</span>
+                {isLoading ? (
+                  <span>Processando</span>
+                ) : (
+                  <span>{totaladmins ? totaladmins : 0}</span>
+                )}
               </div>
               <small style={{ background: 'VIOLET' }}>
                 <Users color="#fff" size={25} />
@@ -130,7 +141,11 @@ export function DashboarContainer() {
             <div className={style.dashboard_card_row}>
               <div>
                 <span>SEU GANHO TOTAL</span>
-                <span>{total_earning ? total_earning : 0}MT</span>
+                {isLoading ? (
+                  <span>Processando</span>
+                ) : (
+                  <span>{total_earning ? total_earning : 0}MT</span>
+                )}
               </div>
               <small style={{ background: '#5048E5' }}>
                 <CurrencyDollar color="#fff" size={25} />
@@ -144,7 +159,11 @@ export function DashboarContainer() {
             <div className={style.dashboard_card_row}>
               <div>
                 <span>SEU ULTIMO GANHO</span>
-                <span>{last_earning ? last_earning : 0}MT</span>
+                {isLoading ? (
+                  <span>Processando</span>
+                ) : (
+                  <span>{last_earning ? last_earning : 0}MT</span>
+                )}
               </div>
               <small style={{ background: 'pink' }}>
                 <CurrencyDollar color="#fff" size={25} />
@@ -159,10 +178,16 @@ export function DashboarContainer() {
             <div className={style.dashboard_card_row}>
               <div>
                 <span>GANHO TOTAL DA EMPRESA</span>
-                <span>
-                  {companyBalance.wallet ? companyBalance.wallet : 0}
-                  MT
-                </span>
+                {isLoading ? (
+                  <span>Processando</span>
+                ) : (
+                  <span>
+                    {companyBalance.wallet
+                      ? companyBalance.wallet
+                      : 0}
+                    MT
+                  </span>
+                )}
               </div>
               <small style={{ background: '#5048E5' }}>
                 <CurrencyDollar color="#fff" size={25} />
@@ -228,7 +253,10 @@ export function DashboarContainer() {
                 ) {
                   return (
                     <div key={item.id}>
-                      <dl className={style.litgh_item}>
+                      <dl
+                        style={{ cursor: 'pointer' }}
+                        className={style.litgh_item}
+                      >
                         <dd>{item.agent_name}</dd>
                       </dl>
                       <dl className={style.litgh_item}>
@@ -284,7 +312,7 @@ export function DashboarContainer() {
       {localStorage.getItem('agente_dashboard_isadmin') === 'true' &&
         adminlist.length !== 0 && (
           <div className={style.costumers_list_container}>
-            <h3>Ultimos pedidos de float feitos pelos agentes</h3>
+            <h3>Pedidos de float:</h3>
 
             <div className={style.dark_item_invisible}>
               <dl className={style.dark_item}>
@@ -319,7 +347,8 @@ export function DashboarContainer() {
                       </dl>
                       <dl
                         style={{
-                          color: item.isconfirm ? 'green' : 'orange'
+                          color: item.isconfirm ? 'green' : 'orange',
+                          cursor: 'pointer'
                         }}
                         className={style.litgh_item}
                         onClick={() =>
@@ -327,7 +356,6 @@ export function DashboarContainer() {
                             state: item
                           })
                         }
-                        style={{ cursor: 'pointer' }}
                       >
                         <dd>
                           {item.isconfirm ? 'confirmado' : 'pendente'}
