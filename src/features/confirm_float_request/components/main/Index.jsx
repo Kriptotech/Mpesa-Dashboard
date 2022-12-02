@@ -14,8 +14,8 @@ export function Main() {
 
     // function to get information of the agents
     async function fetchData() {
-        let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/weekly-earnings-not-confirmed.php')
-        
+        let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/list-request.php')
+
         setCostumersList(res.data)
         // console.log(res.data)
     }
@@ -45,38 +45,39 @@ export function Main() {
                 {
                     costumersList.length !== 0 && 
                     <div className={style.costumers_list_container}>
+
                         <div className={style.dark_item_invisible}>
                             <dl className={style.dark_item}>
-                                <dt>Author</dt>
+                                <dt>Nome</dt>
                             </dl>
                             <dl className={style.dark_item}>
-                                <dt>Quantia</dt>
+                                <dt>Estado</dt>
                             </dl>
                             <dl className={style.dark_item}>
-                                <dt>Localização</dt>
+                                <dt>Quantidade</dt>
                             </dl>
                             <dl className={style.dark_item}>
-                                <dt>Telefone</dt>
+                                <dt>Tipo</dt>
                             </dl>
                         </div>
                         
                         {
-                            costumersList.map((item)=>{
+                            costumersList.map((item)=>{ 
                                 return(
                                     <div key={item.id}>
-                                        <dl className={style.litgh_item} onClick={()=>navigate('/confirm-float-request-item', {state: item})}>
-                                            <dd>{item.name_user}</dd>
-                                        </dl>
-                                        <dl className={style.litgh_item} onClick={()=>navigate('/confirm-float-request-item', {state: item})}>
-                                            <dd>{item.earning}</dd>
-                                        </dl>
-                                        <dl className={style.litgh_item} onClick={()=>navigate('/confirm-float-request-item', {state: item})}>
-                                            <dd>{item.city}</dd>
-                                        </dl>
-                                        <dl className={style.litgh_item} onClick={()=>navigate('/confirm-float-request-item', {state: item})}>
-                                            <dd>{item.number}</dd>
-                                        </dl>
-                                    </div>
+                                            <dl className={style.litgh_item} onClick={()=>navigate('/confirm-float-request-item', {state: item})}>
+                                                <dd>{item.agent_name}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item} onClick={()=>navigate('/confirm-float-request-item', {state: item})}>
+                                                <dd>{item.isconfirm ? 'confirmado' : 'não confirmado'}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item} onClick={()=>navigate('/confirm-float-request-item', {state: item})}>
+                                                <dd>{item.quantity}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item} onClick={()=>navigate('/confirm-float-request-item', {state: item})}>
+                                                <dd>{item.floatype}</dd>
+                                            </dl>
+                                     </div>
                                 )
                             })
                         }

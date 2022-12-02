@@ -19,44 +19,47 @@ export function DashboarContainer() {
     const [companyBalance, setCompanyBalance] =  useState('')
     const [totalagents, settotalagents] =  useState('')
     const [totaladmins, settotaladmins] =  useState('')
+    const [total_earning, settotal_earning] =  useState('')
+    const [last_earning, setlast_earning] =  useState('')
     const [searchTerm, setSearchTerm] =  useState('')
+    const [adminlist, setadminlist] =  useState([])
 
     const navigate =  useNavigate()
 
 
-    // function to get information of the agents
-    async function getAgenttsInfo() {
-    }
-
-    
-
-    useEffect(()=>{
-        getAgenttsInfo()
-    }, [])
-
-
 
     
 
     // function to get information of the agents
     async function getAgenttsInfo() {
-        let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/list-agent.php')
-        setCostumersList(res.data.users)
+        let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/agent-list-request.php',JSON.stringify({iduser: Number(localStorage.getItem('agente_dashboard_id'))}))
 
+        
+        let adminlistrequest =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/list-request.php')
+
+        let listagents =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/list-agent.php')
+
+        let gains =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/agent-total-and-last-earnings.php',JSON.stringify({iduser: Number(localStorage.getItem('agente_dashboard_id'))}))
+        
         let agent_ballance =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/get-agent-balance.php', JSON.stringify({id: Number(localStorage.getItem('agente_dashboard_id'))}))
         setAgentBalance(agent_ballance.data)
         
         let company_ballance =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/get-company-balance.php')
         setCompanyBalance(company_ballance.data)
-
         
+        
+        
+        setCostumersList(res.data)
+        settotaladmins(listagents.data?.total_admin)
+        settotalagents(listagents.data?.total_agents)
+        settotal_earning(gains.data.total_earning.toFixed(2))
+        setlast_earning(gains.data.last_earning.toFixed(2))
+        setadminlist(adminlistrequest.data)
 
-        settotaladmins(res.data?.total_admin)
-        settotalagents(res.data?.total_agents)
-
-        // console.log(res.data)
+        // console.log(gains.data)
+        // console.log(adminlistrequest.data)
         // console.log(agent_ballance.data)
-        // console.log(company_ballance.data)
+        // console.log(listagents.data)
     }
 
     
@@ -87,7 +90,7 @@ export function DashboarContainer() {
                             <div className={style.dashboard_card_row}>
                                 <div>
                                     <span>AGENTES</span>
-                                    <span>{totalagents}</span>
+                                    <span>{totalagents ? totalagents : 0}</span>
                                 </div>
                                 <small style={{background: '#14B8A6'}}><Users color='#fff' size={25}/></small>
                             </div>
@@ -100,7 +103,7 @@ export function DashboarContainer() {
                             <div className={style.dashboard_card_row}>
                                 <div>
                                     <span>ADMINISTRADORES</span>
-                                    <span>{totaladmins}</span>
+                                    <span>{totaladmins ? totaladmins : 0}</span>
                                 </div>
                                 <small style={{background: 'VIOLET'}}><Users color='#fff' size={25}/></small>
                             </div>
@@ -113,7 +116,7 @@ export function DashboarContainer() {
                             <div className={style.dashboard_card_row}>
                                 <div>
                                     <span>SEU GANHO TOTAL</span>
-                                    <span>{agentBalance.balance ? agentBalance.balance : 0}MT</span>
+                                    <span>{total_earning ? total_earning : 0}MT</span>
                                 </div>
                                 <small style={{background: '#5048E5'}}><CurrencyDollar color='#fff' size={25}/></small>
                             </div>
@@ -125,7 +128,7 @@ export function DashboarContainer() {
                             <div className={style.dashboard_card_row}>
                                 <div>
                                     <span>SEU ULTIMO GANHO</span>
-                                    <span>{agentBalance.balance ? agentBalance.balance : 0}MT</span>
+                                    <span>{last_earning ? last_earning : 0}MT</span>
                                 </div>
                                 <small style={{background: 'pink'}}><CurrencyDollar color='#fff' size={25}/></small>
                             </div>
@@ -151,20 +154,20 @@ export function DashboarContainer() {
                 {
                     localStorage.getItem('agente_dashboard_isadmin') === 'false' && costumersList.length !== 0 && 
                     <div className={style.costumers_list_container}>
-                        <h3>Ultimos ganhos relatados por ti</h3>
+                        <h3>Ultimos pedidos de float feitos por ti</h3>
 
                         <div className={style.dark_item_invisible}>
                             <dl className={style.dark_item}>
                                 <dt>Nome</dt>
                             </dl>
                             <dl className={style.dark_item}>
-                                <dt>E-mail</dt>
+                                <dt>Estado</dt>
                             </dl>
                             <dl className={style.dark_item}>
-                                <dt>Localização</dt>
+                                <dt>Quantidade</dt>
                             </dl>
                             <dl className={style.dark_item}>
-                                <dt>Telefone</dt>
+                                <dt>Tipo</dt>
                             </dl>
                         </div>
                         
@@ -174,16 +177,16 @@ export function DashboarContainer() {
                                     return(
                                         <div key={item.id}>
                                             <dl className={style.litgh_item} >
-                                                <dd>{item.name}</dd>
+                                                <dd>{item.agent_name}</dd>
+                                            </dl>
+                                            <dl style={{color: item.isconfirm ? 'green' : 'orange'}} className={style.litgh_item} >
+                                                <dd>{item.isconfirm ? 'confirmado' : 'pendente'}</dd>
                                             </dl>
                                             <dl className={style.litgh_item} >
-                                                <dd>{item.email}</dd>
+                                                <dd>{item.quantity}</dd>
                                             </dl>
                                             <dl className={style.litgh_item} >
-                                                <dd>{item.city}</dd>
-                                            </dl>
-                                            <dl className={style.litgh_item} >
-                                                <dd>{item.number}</dd>
+                                                <dd>{item.floatype}</dd>
                                             </dl>
                                         </div>
                                     )
@@ -194,16 +197,16 @@ export function DashboarContainer() {
                                     return(
                                         <div key={item.id}>
                                             <dl className={style.litgh_item} >
-                                                <dd>{item.name}</dd>
+                                                <dd>{item.agent_name}</dd>
                                             </dl>
                                             <dl className={style.litgh_item} >
-                                                <dd>{item.email}</dd>
+                                                <dd style={{color: item.isconfirm ? 'lightgreen' : 'orange'}}>{item.isconfirm ? 'confirmado' : 'pendente'}</dd>
                                             </dl>
                                             <dl className={style.litgh_item} >
-                                                <dd>{item.city}</dd>
+                                                <dd>{item.quantity}</dd>
                                             </dl>
                                             <dl className={style.litgh_item} >
-                                                <dd>{item.number}</dd>
+                                                <dd>{item.floatype}</dd>
                                             </dl>
                                         </div>
                                     )
@@ -212,16 +215,99 @@ export function DashboarContainer() {
                                 return(
                                     <div key={item.id}>
                                          <dl className={style.litgh_item} >
-                                                <dd>{item.name}</dd>
+                                                <dd>{item.agent_name}</dd>
                                             </dl>
                                             <dl className={style.litgh_item} >
-                                                <dd>{item.email}</dd>
+                                                <dd style={{color: item.isconfirm ? 'lightgreen' : 'orange'}}>{item.isconfirm ? 'confirmado' : 'pendente'}</dd>
                                             </dl>
                                             <dl className={style.litgh_item} >
-                                                <dd>{item.city}</dd>
+                                                <dd>{item.quantity}</dd>
                                             </dl>
                                             <dl className={style.litgh_item} >
-                                                <dd>{item.number}</dd>
+                                                <dd>{item.floatype}</dd>
+                                            </dl>
+                                     </div>
+                                )
+                            })
+                        }
+                    </div>
+                    
+                }
+
+                {
+                    localStorage.getItem('agente_dashboard_isadmin') === 'true' && adminlist.length !== 0 && 
+                    <div className={style.costumers_list_container}>
+                        <h3>Ultimos pedidos de float feitos pelos agentes</h3>
+
+                        <div className={style.dark_item_invisible}>
+                            <dl className={style.dark_item}>
+                                <dt>Nome</dt>
+                            </dl>
+                            <dl className={style.dark_item}>
+                                <dt>Estado</dt>
+                            </dl>
+                            <dl className={style.dark_item}>
+                                <dt>Quantidade</dt>
+                            </dl>
+                            <dl className={style.dark_item}>
+                                <dt>Tipo</dt>
+                            </dl>
+                        </div>
+                        
+                        {
+                            adminlist.filter((item)=>{
+                                if (searchTerm === '') { 
+                                    return(
+                                        <div key={item.id}>
+                                            <dl className={style.litgh_item}  onClick={()=>navigate('/confirm-float-request-item', {state: item})} style={{cursor: 'pointer'}}>
+                                                <dd>{item.agent_name}</dd>
+                                            </dl>
+                                            <dl style={{color: item.isconfirm ? 'green' : 'orange'}} className={style.litgh_item}  onClick={()=>navigate('/confirm-float-request-item', {state: item})} style={{cursor: 'pointer'}}>
+                                                <dd>{item.isconfirm ? 'confirmado' : 'pendente'}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item}  onClick={()=>navigate('/confirm-float-request-item', {state: item})} style={{cursor: 'pointer'}}>
+                                                <dd>{item.quantity}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item}  onClick={()=>navigate('/confirm-float-request-item', {state: item})} style={{cursor: 'pointer'}}>
+                                                <dd>{item.floatype}</dd>
+                                            </dl>
+                                        </div>
+                                    )
+                                }
+        
+                                // if there was found any item with the values provided
+                                else if(item.name.toLowerCase().includes(searchTerm.toLowerCase())){
+                                    return(
+                                        <div key={item.id}>
+                                            <dl className={style.litgh_item}  onClick={()=>navigate('/confirm-float-request-item', {state: item})} style={{cursor: 'pointer'}}>
+                                                <dd>{item.agent_name}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item}  onClick={()=>navigate('/confirm-float-request-item', {state: item})} style={{cursor: 'pointer'}}>
+                                                <dd style={{color: item.isconfirm ? 'lightgreen' : 'orange'}}>{item.isconfirm ? 'confirmado' : 'pendente'}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item}  onClick={()=>navigate('/confirm-float-request-item', {state: item})} style={{cursor: 'pointer'}}>
+                                                <dd>{item.quantity}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item}  onClick={()=>navigate('/confirm-float-request-item', {state: item})} style={{cursor: 'pointer'}}>
+                                                <dd>{item.floatype}</dd>
+                                            </dl>
+                                        </div>
+                                    )
+                                }
+                            }).map((item)=>{ 
+                                return(
+                                    <div key={item.id}>
+                                         <dl className={style.litgh_item}  onClick={()=>navigate('/confirm-float-request-item', {state: item})} style={{cursor: 'pointer'}}>
+                                                <dd>{item.agent_name}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item}  onClick={()=>navigate('/confirm-float-request-item', {state: item})} style={{cursor: 'pointer'}}>
+                                                <dd style={{color: item.isconfirm ? 'lightgreen' : 'orange'}}>{item.isconfirm ? 'confirmado' : 'pendente'}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item}  onClick={()=>navigate('/confirm-float-request-item', {state: item})} style={{cursor: 'pointer'}}>
+                                                <dd>{item.quantity}</dd>
+                                            </dl>
+                                            <dl className={style.litgh_item}  onClick={()=>navigate('/confirm-float-request-item', {state: item})} style={{cursor: 'pointer'}}>
+                                                <dd>{item.floatype}</dd>
                                             </dl>
                                      </div>
                                 )

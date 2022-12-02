@@ -14,6 +14,8 @@ import { ConfirmWeeklyRelatory } from "../pages/ConfirmWeeklyRelatory";
 import { ConfirmFloatRequest } from "../pages/ConfirmFloatRequest";
 import { ConfirmFloatRequestItem } from "../pages/ConfirmFloatRequestItem";
 import { AskFloat } from "../pages/AskFloat";
+import { MyRelatories } from "../pages/MyRelatories";
+import { AgentsRelatories } from "../pages/AgentsRelatories";
 import { Login } from "../pages/Login";
 
 
@@ -38,6 +40,8 @@ export function Router() {
                         <Route path="/confirm-float-request-item" element={<PrivateRoute><ConfirmFloatRequestItem /></PrivateRoute>} />
                         <Route path="/confirm-weekly-relatory" element={<PrivateRoute><ConfirmWeeklyRelatory /></PrivateRoute>} />
                         <Route path="/weekly-relatory" element={<PrivateRoute><WeeklyRelatory /></PrivateRoute>} />
+                        <Route path="/agents-relatories" element={<AgentsRelatories />} />
+                        <Route path="/my-relatories" element={<MyRelatories />} />
                         <Route path="/signin" element={<Login />} />
                     </Routes>
                 </BrowserRouter>

@@ -109,7 +109,8 @@
     justify-content: space-between;
     flex-wrap: wrap;
 }
-.profile .profile_row_container form div input{
+.profile .profile_row_container form div input,
+.profile .profile_row_container form div select{
     width: 100%;
     height: 50px;
     margin-bottom: 20px;
@@ -119,7 +120,8 @@
     color: var(--Dashboard-color-text-1);
     padding: 0 10px;
 }
-.profile .profile_row_container form div input::placeholder{
+.profile .profile_row_container form div input::placeholder,
+.profile .profile_row_container form div select::placeholder{
     color: var(--Dashboard-color-text-1);
     opacity: .8;
 }

@@ -8,6 +8,7 @@ import { Header } from "../../../../components/header/Index";
 export function DaylyAmountContainer() {
     // states 
     const [amount, setamount] =  useState('')
+    const [floattype, setfloattype] =  useState(1)
     const [message, setMessage] =  useState('')
 
     
@@ -17,13 +18,14 @@ export function DaylyAmountContainer() {
         setMessage('')
 
         const values = {
-            earnings: Number(amount),
+            quantity: Number(amount),
             iduser: Number(localStorage.getItem('agente_dashboard_id')),
+            floatype: floattype, 
         }
 
 
         if(amount){
-            let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/add-weekly-earnings.php',JSON.stringify(values))
+            let res =await  axios.post('https://pipocar.dnsabr.com/app/mpesa-dashboard/request-float.php',JSON.stringify(values))
             
             // console.log(res.config.data)
             // console.log(res.data)
@@ -54,6 +56,11 @@ export function DaylyAmountContainer() {
                         
                         <div>
                             <input placeholder='Requisitar float' type='text' onChange={(e)=>setamount(e.target.value)}/>
+
+                            <select required onChange={(e)=>setfloattype(e.target.value)}>
+                                <option value={1}>Mpesa</option>
+                                <option value={2}>Emola</option>
+                            </select>
                         </div>
                         <br/><p style={{color: 'violet'}}>{message}</p>
                         <button>SALVAR DETALHES</button>

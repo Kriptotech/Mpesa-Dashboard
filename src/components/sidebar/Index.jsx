@@ -33,6 +33,8 @@ export function Sidebar() {
     const [confirmweeklyRelatoryCurrent, setconfirmweeklyRelatoryCurrent] = useState(false);
     const [askfloatCurrent, setaskfloatCurrent] = useState(false);
     const [confirmfloatrequestCurrent, setaconfirmfloatrequestCurrent] = useState(false);
+    const [myrelatoriesCurrent, setamyrelatoriesCurrent] = useState(false);
+    const [agentsrelatoriesCurrent, setagentsrelatoriesCurrent] = useState(false);
 
     const [isAdmin, setIsAdmin] = useState(localStorage.getItem('agente_dashboard_isadmin') === 'true' ? true : false);
 
@@ -40,6 +42,20 @@ export function Sidebar() {
         localStorage.setItem('currentRoute', route)
 
         // changing current routes
+        if(route === 'agents-relatories'){
+            setdashboardCurrent(false)
+            setAgentsCurrent(false)
+            setAccountCurrent(false)
+            setAddAgentCurrent(false)
+            setweeklyRelatoryCurrent(false)
+            setconfirmweeklyRelatoryCurrent(false)
+            setDaylyAmountCurrent(false)
+            setaskfloatCurrent(false)
+            setaconfirmfloatrequestCurrent(false)
+            setamyrelatoriesCurrent(false)
+            setagentsrelatoriesCurrent(true)
+            navigate('/agents-relatories')
+        }
         if(route === 'confirm-float-request'){
             setdashboardCurrent(false)
             setAgentsCurrent(false)
@@ -49,8 +65,24 @@ export function Sidebar() {
             setconfirmweeklyRelatoryCurrent(false)
             setDaylyAmountCurrent(false)
             setaskfloatCurrent(false)
+            setamyrelatoriesCurrent(false)
+            setagentsrelatoriesCurrent(false)
             setaconfirmfloatrequestCurrent(true)
             navigate('/confirm-float-request')
+        }
+        if(route === 'my-relatories'){
+            setdashboardCurrent(false)
+            setAgentsCurrent(false)
+            setAccountCurrent(false)
+            setAddAgentCurrent(false)
+            setweeklyRelatoryCurrent(false)
+            setconfirmweeklyRelatoryCurrent(false)
+            setDaylyAmountCurrent(false)
+            setaskfloatCurrent(false)
+            setaconfirmfloatrequestCurrent(false)
+            setagentsrelatoriesCurrent(false)
+            setamyrelatoriesCurrent(true)
+            navigate('/my-relatories')
         }
         if(route === 'ask-float'){
             setdashboardCurrent(false)
@@ -61,6 +93,8 @@ export function Sidebar() {
             setconfirmweeklyRelatoryCurrent(false)
             setDaylyAmountCurrent(false)
             setaconfirmfloatrequestCurrent(false)
+            setamyrelatoriesCurrent(false)
+            setagentsrelatoriesCurrent(false)
             setaskfloatCurrent(true)
             navigate('/ask-float')
         }
@@ -72,6 +106,8 @@ export function Sidebar() {
             setconfirmweeklyRelatoryCurrent(false)
             setaskfloatCurrent(false)
             setaconfirmfloatrequestCurrent(false)
+            setamyrelatoriesCurrent(false)
+            setagentsrelatoriesCurrent(false)
             setdashboardCurrent(true)
             navigate('/')
         }
@@ -83,6 +119,8 @@ export function Sidebar() {
             setweeklyRelatoryCurrent(false)
             setaskfloatCurrent(false)
             setaconfirmfloatrequestCurrent(false)
+            setamyrelatoriesCurrent(false)
+            setagentsrelatoriesCurrent(false)
             setconfirmweeklyRelatoryCurrent(true)
             navigate('/confirm-weekly-relatory')
         }
@@ -93,6 +131,8 @@ export function Sidebar() {
             setdashboardCurrent(false)
             setaskfloatCurrent(false)
             setaconfirmfloatrequestCurrent(false)
+            setamyrelatoriesCurrent(false)
+            setagentsrelatoriesCurrent(false)
             setweeklyRelatoryCurrent(true)
             navigate('/weekly-relatory')
         }
@@ -104,6 +144,8 @@ export function Sidebar() {
             setconfirmweeklyRelatoryCurrent(false)
             setaskfloatCurrent(false)
             setaconfirmfloatrequestCurrent(false)
+            setamyrelatoriesCurrent(false)
+            setagentsrelatoriesCurrent(false)
             setAgentsCurrent(true)
             navigate('/customers')
         }
@@ -115,6 +157,8 @@ export function Sidebar() {
             setconfirmweeklyRelatoryCurrent(false)
             setaskfloatCurrent(false)
             setaconfirmfloatrequestCurrent(false)
+            setamyrelatoriesCurrent(false)
+            setagentsrelatoriesCurrent(false)
             setAccountCurrent(true)
             navigate('/account')
         }
@@ -126,6 +170,8 @@ export function Sidebar() {
             setconfirmweeklyRelatoryCurrent(false)
             setaskfloatCurrent(false)
             setaconfirmfloatrequestCurrent(false)
+            setamyrelatoriesCurrent(false)
+            setagentsrelatoriesCurrent(false)
             setAddAgentCurrent(true)
             navigate('/add-agent')
         }
@@ -138,6 +184,8 @@ export function Sidebar() {
             setconfirmweeklyRelatoryCurrent(false)
             setaskfloatCurrent(false)
             setaconfirmfloatrequestCurrent(false)
+            setamyrelatoriesCurrent(false)
+            setagentsrelatoriesCurrent(false)
             setDaylyAmountCurrent(true)
             navigate('/dayly-amount')
         }
@@ -172,6 +220,12 @@ export function Sidebar() {
         }
         if(localStorage.getItem('currentRoute') === 'confirm-float-request'){
             setaconfirmfloatrequestCurrent(true)
+        }
+        if(localStorage.getItem('currentRoute') === 'my-relatories'){
+            setamyrelatoriesCurrent(true)
+        }
+        if(localStorage.getItem('currentRoute') === 'agents-relatories'){
+            setagentsrelatoriesCurrent(true)
         }
 
         // if there is no current route in local storage
@@ -253,6 +307,20 @@ export function Sidebar() {
                             <span style={{color: askfloatCurrent ? '#10B981' : '#9CA3AF'}}>Requisitar float</span>
                         </div>
                     }
+                    {
+                        !isAdmin &&
+                        <div onClick={()=>changeCurrentRoute('my-relatories')} style={{background: myrelatoriesCurrent ? '#242A38' : 'none'}}>
+                            <CurrencyDollar color={myrelatoriesCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
+                            <span style={{color: myrelatoriesCurrent ? '#10B981' : '#9CA3AF'}}>Meus relatorios</span>
+                        </div>
+                    }
+                    {
+                        isAdmin &&
+                        <div onClick={()=>changeCurrentRoute('agents-relatories')} style={{background: agentsrelatoriesCurrent ? '#242A38' : 'none'}}>
+                            <CurrencyDollar color={agentsrelatoriesCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
+                            <span style={{color: agentsrelatoriesCurrent ? '#10B981' : '#9CA3AF'}}>Relatorios dos agentes</span>
+                        </div>
+                    }
                 </div>
             </div>
         </header>
@@ -327,6 +395,20 @@ export function Sidebar() {
                         <div onClick={()=>changeCurrentRoute('ask-float')} style={{background: askfloatCurrent ? '#242A38' : 'none'}}>
                             <CurrencyDollar color={askfloatCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
                             <span style={{color: askfloatCurrent ? '#10B981' : '#9CA3AF'}}>Requisitar float</span>
+                        </div>
+                    }
+                    {
+                        !isAdmin &&
+                        <div onClick={()=>changeCurrentRoute('my-relatories')} style={{background: myrelatoriesCurrent ? '#242A38' : 'none'}}>
+                            <CurrencyDollar color={myrelatoriesCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
+                            <span style={{color: myrelatoriesCurrent ? '#10B981' : '#9CA3AF'}}>Meus relatorios</span>
+                        </div>
+                    }
+                    {
+                        isAdmin &&
+                        <div onClick={()=>changeCurrentRoute('agents-relatories')} style={{background: agentsrelatoriesCurrent ? '#242A38' : 'none'}}>
+                            <CurrencyDollar color={agentsrelatoriesCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
+                            <span style={{color: agentsrelatoriesCurrent ? '#10B981' : '#9CA3AF'}}>Relatorios dos agentes</span>
                         </div>
                     }
                 </div>
