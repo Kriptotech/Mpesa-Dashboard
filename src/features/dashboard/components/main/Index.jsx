@@ -7,6 +7,7 @@ import {
 } from 'phosphor-react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { PulseLoader } from 'react-spinners'
 
 import style from './styles.module.css'
 import { Header } from '../../../../components/header/Index'
@@ -104,7 +105,7 @@ export function DashboarContainer() {
               <div>
                 <span>AGENTES</span>
                 {isLoading ? (
-                  <span>Processando</span>
+                  <PulseLoader color="green" />
                 ) : (
                   <span>{totalagents ? totalagents : 0}</span>
                 )}
@@ -123,7 +124,7 @@ export function DashboarContainer() {
               <div>
                 <span>ADMINISTRADORES</span>
                 {isLoading ? (
-                  <span>Processando</span>
+                  <PulseLoader color="green" />
                 ) : (
                   <span>{totaladmins ? totaladmins : 0}</span>
                 )}
@@ -142,7 +143,7 @@ export function DashboarContainer() {
               <div>
                 <span>SEU GANHO TOTAL</span>
                 {isLoading ? (
-                  <span>Processando</span>
+                  <PulseLoader color="green" />
                 ) : (
                   <span>{total_earning ? total_earning : 0}MT</span>
                 )}
@@ -160,7 +161,7 @@ export function DashboarContainer() {
               <div>
                 <span>SEU ULTIMO GANHO</span>
                 {isLoading ? (
-                  <span>Processando</span>
+                  <PulseLoader color="green" />
                 ) : (
                   <span>{last_earning ? last_earning : 0}MT</span>
                 )}
@@ -179,7 +180,7 @@ export function DashboarContainer() {
               <div>
                 <span>GANHO TOTAL DA EMPRESA</span>
                 {isLoading ? (
-                  <span>Processando</span>
+                  <PulseLoader color="green" />
                 ) : (
                   <span>
                     {companyBalance.wallet
