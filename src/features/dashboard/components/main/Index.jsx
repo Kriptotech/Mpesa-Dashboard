@@ -8,6 +8,7 @@ import {
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { PulseLoader } from 'react-spinners'
+import Swal from 'sweetalert2'
 
 import style from './styles.module.css'
 import { Header } from '../../../../components/header/Index'
@@ -26,7 +27,12 @@ export function DashboarContainer() {
   const [adminlist, setadminlist] = useState([])
 
   const navigate = useNavigate()
-
+  Swal.fire({
+    position: 'center',
+    icon: 'warning',
+    title: 'Desabilitando side bar',
+    timer: 5000
+  })
   // function to get information of the agents
   async function getAgenttsInfo() {
     setLoading(true)
