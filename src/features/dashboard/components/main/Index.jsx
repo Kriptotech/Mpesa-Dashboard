@@ -30,7 +30,8 @@ export function DashboarContainer() {
   Swal.fire({
     position: 'center',
     icon: 'warning',
-    title: 'Desabilitando side bar',
+    title: 'Desabilitado side bar',
+
     timer: 5000
   })
   // function to get information of the agents
