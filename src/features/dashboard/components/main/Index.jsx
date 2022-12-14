@@ -27,13 +27,7 @@ export function DashboarContainer() {
   const [adminlist, setadminlist] = useState([])
 
   const navigate = useNavigate()
-  Swal.fire({
-    position: 'center',
-    icon: 'warning',
-    title: 'Desabilitado side bar',
 
-    timer: 5000
-  })
   // function to get information of the agents
   async function getAgenttsInfo() {
     setLoading(true)

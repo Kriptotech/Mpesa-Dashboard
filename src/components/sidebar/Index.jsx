@@ -263,83 +263,260 @@ export function Sidebar() {
               <span>Logado como: {isAdmin ? 'admin' : 'agente'}</span>
             </div>
           </div>
-          {/*                 
-                <div  className={style.sidebar_second_div_box}>
-                    <div onClick={()=>changeCurrentRoute('dashboard')} style={{background: dashboardCurrent ? '#242A38' : 'none'}}>
-                        <ChartBar color={dashboardCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
-                        <span style={{color: dashboardCurrent ? '#10B981' : '#9CA3AF'}}>Dashboard</span>
-                    </div>
 
-                    {
-                        isAdmin  &&
-                        <div onClick={()=>changeCurrentRoute('customers')} style={{background: agentsCurrent ? '#242A38' : 'none'}}>
-                            <Users color={agentsCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
-                            <span style={{color: agentsCurrent ? '#10B981' : '#9CA3AF'}}>Agentes</span>
-                        </div>
-                    }
-                    
-                    <div onClick={()=>changeCurrentRoute('account')} style={{background: accountCurrent ? '#242A38' : 'none'}}>
-                        <User color={accountCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
-                        <span style={{color: accountCurrent ? '#10B981' : '#9CA3AF'}}>Conta</span>
-                    </div>
+          <div className={style.sidebar_second_div_box}>
+            <div
+              onClick={() => changeCurrentRoute('dashboard')}
+              style={{
+                background: dashboardCurrent ? '#242A38' : 'none'
+              }}
+            >
+              <ChartBar
+                color={dashboardCurrent ? '#10B981' : '#9CA3AF'}
+                size={20}
+              />
+              <span
+                style={{
+                  color: dashboardCurrent ? '#10B981' : '#9CA3AF'
+                }}
+              >
+                Dashboard
+              </span>
+            </div>
 
-                    {
-                        isAdmin  &&
-                        <div onClick={()=>changeCurrentRoute('add_customers')} style={{background: addAgentCurrent ? '#242A38' : 'none'}}>
-                            <UserPlus color={addAgentCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
-                            <span style={{color: addAgentCurrent ? '#10B981' : '#9CA3AF'}}>Adicionar agente</span>
-                        </div>
-                    }
-                    {
-                        !isAdmin &&
-                        <div onClick={()=>changeCurrentRoute('dayly_amount')} style={{background: daylyAmountCurrnt ? '#242A38' : 'none'}}>
-                            <CurrencyDollar color={daylyAmountCurrnt ? '#10B981' : '#9CA3AF'} size={20}/>
-                            <span style={{color: daylyAmountCurrnt ? '#10B981' : '#9CA3AF'}}>Relatar ganhos</span>
-                        </div>
-                    }
-                    {
-                        isAdmin &&
-                        <div onClick={()=>changeCurrentRoute('weekly-relatory')} style={{background: weeklyRelatoryCurrent ? '#242A38' : 'none'}}>
-                            <CurrencyDollar color={weeklyRelatoryCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
-                            <span style={{color: weeklyRelatoryCurrent ? '#10B981' : '#9CA3AF'}}>Relatorios semanais</span>
-                        </div>
-                    }
-                    {
-                        isAdmin &&
-                        <div onClick={()=>changeCurrentRoute('confirm-weekly-relatory')} style={{background: confirmweeklyRelatoryCurrent ? '#242A38' : 'none'}}>
-                            <CurrencyDollar color={confirmweeklyRelatoryCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
-                            <span style={{color: confirmweeklyRelatoryCurrent ? '#10B981' : '#9CA3AF'}}>Confirmar relatorios semanais</span>
-                        </div>
-                    }
-                    {
-                        isAdmin &&
-                        <div onClick={()=>changeCurrentRoute('confirm-float-request')} style={{background: confirmfloatrequestCurrent ? '#242A38' : 'none'}}>
-                            <CurrencyDollar color={confirmfloatrequestCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
-                            <span style={{color: confirmfloatrequestCurrent ? '#10B981' : '#9CA3AF'}}>Confirmar pedido de float</span>
-                        </div>
-                    }
-                    {
-                        !isAdmin &&
-                        <div onClick={()=>changeCurrentRoute('ask-float')} style={{background: askfloatCurrent ? '#242A38' : 'none'}}>
-                            <CurrencyDollar color={askfloatCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
-                            <span style={{color: askfloatCurrent ? '#10B981' : '#9CA3AF'}}>Requisitar float</span>
-                        </div>
-                    }
-                    {
-                        !isAdmin &&
-                        <div onClick={()=>changeCurrentRoute('my-relatories')} style={{background: myrelatoriesCurrent ? '#242A38' : 'none'}}>
-                            <CurrencyDollar color={myrelatoriesCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
-                            <span style={{color: myrelatoriesCurrent ? '#10B981' : '#9CA3AF'}}>Meus relatorios</span>
-                        </div>
-                    }
-                    {
-                        isAdmin &&
-                        <div onClick={()=>changeCurrentRoute('agents-relatories')} style={{background: agentsrelatoriesCurrent ? '#242A38' : 'none'}}>
-                            <CurrencyDollar color={agentsrelatoriesCurrent ? '#10B981' : '#9CA3AF'} size={20}/>
-                            <span style={{color: agentsrelatoriesCurrent ? '#10B981' : '#9CA3AF'}}>Relatorios dos agentes</span>
-                        </div>
-                    }
-                </div> */}
+            {isAdmin && (
+              <div
+                onClick={() => changeCurrentRoute('customers')}
+                style={{
+                  background: agentsCurrent ? '#242A38' : 'none'
+                }}
+              >
+                <Users
+                  color={agentsCurrent ? '#10B981' : '#9CA3AF'}
+                  size={20}
+                />
+                <span
+                  style={{
+                    color: agentsCurrent ? '#10B981' : '#9CA3AF'
+                  }}
+                >
+                  Agentes
+                </span>
+              </div>
+            )}
+
+            <div
+              onClick={() => changeCurrentRoute('account')}
+              style={{
+                background: accountCurrent ? '#242A38' : 'none'
+              }}
+            >
+              <User
+                color={accountCurrent ? '#10B981' : '#9CA3AF'}
+                size={20}
+              />
+              <span
+                style={{
+                  color: accountCurrent ? '#10B981' : '#9CA3AF'
+                }}
+              >
+                Conta
+              </span>
+            </div>
+
+            {isAdmin && (
+              <div
+                onClick={() => changeCurrentRoute('add_customers')}
+                style={{
+                  background: addAgentCurrent ? '#242A38' : 'none'
+                }}
+              >
+                <UserPlus
+                  color={addAgentCurrent ? '#10B981' : '#9CA3AF'}
+                  size={20}
+                />
+                <span
+                  style={{
+                    color: addAgentCurrent ? '#10B981' : '#9CA3AF'
+                  }}
+                >
+                  Adicionar agente
+                </span>
+              </div>
+            )}
+            {!isAdmin && (
+              <div
+                onClick={() => changeCurrentRoute('dayly_amount')}
+                style={{
+                  background: daylyAmountCurrnt ? '#242A38' : 'none'
+                }}
+              >
+                <CurrencyDollar
+                  color={daylyAmountCurrnt ? '#10B981' : '#9CA3AF'}
+                  size={20}
+                />
+                <span
+                  style={{
+                    color: daylyAmountCurrnt ? '#10B981' : '#9CA3AF'
+                  }}
+                >
+                  Relatar ganhos
+                </span>
+              </div>
+            )}
+            {isAdmin && (
+              <div
+                onClick={() => changeCurrentRoute('weekly-relatory')}
+                style={{
+                  background: weeklyRelatoryCurrent
+                    ? '#242A38'
+                    : 'none'
+                }}
+              >
+                <CurrencyDollar
+                  color={
+                    weeklyRelatoryCurrent ? '#10B981' : '#9CA3AF'
+                  }
+                  size={20}
+                />
+                <span
+                  style={{
+                    color: weeklyRelatoryCurrent
+                      ? '#10B981'
+                      : '#9CA3AF'
+                  }}
+                >
+                  Relatorios semanais
+                </span>
+              </div>
+            )}
+            {isAdmin && (
+              <div
+                onClick={() =>
+                  changeCurrentRoute('confirm-weekly-relatory')
+                }
+                style={{
+                  background: confirmweeklyRelatoryCurrent
+                    ? '#242A38'
+                    : 'none'
+                }}
+              >
+                <CurrencyDollar
+                  color={
+                    confirmweeklyRelatoryCurrent
+                      ? '#10B981'
+                      : '#9CA3AF'
+                  }
+                  size={20}
+                />
+                <span
+                  style={{
+                    color: confirmweeklyRelatoryCurrent
+                      ? '#10B981'
+                      : '#9CA3AF'
+                  }}
+                >
+                  Confirmar relatorios semanais
+                </span>
+              </div>
+            )}
+            {isAdmin && (
+              <div
+                onClick={() =>
+                  changeCurrentRoute('confirm-float-request')
+                }
+                style={{
+                  background: confirmfloatrequestCurrent
+                    ? '#242A38'
+                    : 'none'
+                }}
+              >
+                <CurrencyDollar
+                  color={
+                    confirmfloatrequestCurrent ? '#10B981' : '#9CA3AF'
+                  }
+                  size={20}
+                />
+                <span
+                  style={{
+                    color: confirmfloatrequestCurrent
+                      ? '#10B981'
+                      : '#9CA3AF'
+                  }}
+                >
+                  Confirmar pedido de float
+                </span>
+              </div>
+            )}
+            {!isAdmin && (
+              <div
+                onClick={() => changeCurrentRoute('ask-float')}
+                style={{
+                  background: askfloatCurrent ? '#242A38' : 'none'
+                }}
+              >
+                <CurrencyDollar
+                  color={askfloatCurrent ? '#10B981' : '#9CA3AF'}
+                  size={20}
+                />
+                <span
+                  style={{
+                    color: askfloatCurrent ? '#10B981' : '#9CA3AF'
+                  }}
+                >
+                  Requisitar float
+                </span>
+              </div>
+            )}
+            {!isAdmin && (
+              <div
+                onClick={() => changeCurrentRoute('my-relatories')}
+                style={{
+                  background: myrelatoriesCurrent ? '#242A38' : 'none'
+                }}
+              >
+                <CurrencyDollar
+                  color={myrelatoriesCurrent ? '#10B981' : '#9CA3AF'}
+                  size={20}
+                />
+                <span
+                  style={{
+                    color: myrelatoriesCurrent ? '#10B981' : '#9CA3AF'
+                  }}
+                >
+                  Meus relatorios
+                </span>
+              </div>
+            )}
+            {isAdmin && (
+              <div
+                onClick={() =>
+                  changeCurrentRoute('agents-relatories')
+                }
+                style={{
+                  background: agentsrelatoriesCurrent
+                    ? '#242A38'
+                    : 'none'
+                }}
+              >
+                <CurrencyDollar
+                  color={
+                    agentsrelatoriesCurrent ? '#10B981' : '#9CA3AF'
+                  }
+                  size={20}
+                />
+                <span
+                  style={{
+                    color: agentsrelatoriesCurrent
+                      ? '#10B981'
+                      : '#9CA3AF'
+                  }}
+                >
+                  Relatorios dos agentes
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
